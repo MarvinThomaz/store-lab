@@ -11,6 +11,6 @@ namespace Store.Product.Domain.Repositories
         Task UpdateDeletedStatusOfProductAsync(string productKey, bool isDeleted, DateTime modifiedOn);
         Task UpdateNameOfProductAsync(string productKey, string name, DateTime modifiedOn);
         Task<Entities.Product> GetProductByKeyAsync(string key);
-        Task<IPagingList<Entities.Product>> GetAllProductsAsync(int page, int recordsPerPage);
+        Task<IPagingList<Entities.Product>> GetProductsByDeleteStatusAsync(bool isDeleted, int page, int recordsPerPage);
     }
 }

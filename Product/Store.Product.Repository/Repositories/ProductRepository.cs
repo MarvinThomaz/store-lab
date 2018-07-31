@@ -23,9 +23,9 @@ namespace Store.Product.Repositories
             await _dataAccess.InsertAsync(product);
         }
 
-        public async Task<IPagingList<Domain.Entities.Product>> GetAllProductsAsync(int page, int recordsPerPage)
+        public async Task<IPagingList<Domain.Entities.Product>> GetProductsByDeleteStatusAsync(bool isDeleted, int page, int recordsPerPage)
         {
-            return await _dataAccess.SelectAsync<Domain.Entities.Product>(page, recordsPerPage);
+            return await _dataAccess.SelectAllByQueryAsync<Domain.Entities.Product>(c => c.IsDeleted == isDeleted, page, recordsPerPage);
         }
 
         public async Task<Domain.Entities.Product> GetProductByKeyAsync(string key)

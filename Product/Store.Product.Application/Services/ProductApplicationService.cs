@@ -73,7 +73,7 @@ namespace Store.Product.Application.Services
 
         public async Task<IPagingList<Domain.Entities.Product>> GetProductsAsync(int page, int recordsPerPage)
         {
-            return await _repository.GetAllProductsAsync(page, recordsPerPage);
+            return await _repository.GetProductsByDeleteStatusAsync(false, page, recordsPerPage);
         }
 
         public async Task RegisterNewProductAsync(Domain.Entities.Product product)
