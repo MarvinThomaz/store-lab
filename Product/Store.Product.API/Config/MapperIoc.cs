@@ -17,6 +17,7 @@ namespace Store.Product.API.Config
             services.AddSingleton<IMapper<CreatePropertyRequest, Property>, CreatePropertyRequestToPropertyMapper>();
             services.AddSingleton<IMapper<UpdateProductRequest, Domain.Entities.Product>, UpdateProductRequestToProduct>();
             services.AddSingleton<IMapper<IPagingList<Domain.Entities.Product>, IPagingList<ListProductResponse>>, ProductToListProductResponseMapper>();
+            services.AddSingleton<IMapper<Domain.Entities.Product, GetProductResponse>, ProductToGetProductResponseMapper>();
         }
     }
 }

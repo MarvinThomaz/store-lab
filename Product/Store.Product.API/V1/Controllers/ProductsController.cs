@@ -68,7 +68,7 @@ namespace Store.Product.API.V1.Controllers
 
         [HttpGet]
         [Route("{key}", Name = GetProductRouteName)]
-        public async Task<IActionResult> GetProductAsync(string key)
+        public async Task<IActionResult> GetProductByKeyAsync(string key, [FromServices] IMapper<ProductEntity, GetProductResponse> mapper)
         {
             var product = await _service.GetProductByKeyAsync(key);
 
@@ -77,7 +77,9 @@ namespace Store.Product.API.V1.Controllers
                 return NotFound();
             }
 
-            return Ok(product);
+            var response = mapper.Map(product);
+
+            return Ok(response);
         }
 
         [HttpGet]
