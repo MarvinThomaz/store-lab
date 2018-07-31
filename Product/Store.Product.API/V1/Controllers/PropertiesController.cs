@@ -15,6 +15,7 @@ namespace Store.Product.API.V1.Controllers
         private readonly IUrlHelper _urlHelper;
 
         private readonly IProductApplicationService _service;
+
         public PropertiesController(IProductApplicationService service, IUrlHelper urlHelper)
         {
             _urlHelper = urlHelper;
@@ -43,7 +44,14 @@ namespace Store.Product.API.V1.Controllers
         [Route("", Name = GetPropertiesByProductRouteName)]
         public async Task<IActionResult> GetPropertiesByProductAsync(string key)
         {
-            return Ok();
+            var product = await _service.GetProductByKeyAsync(key);
+
+            if (product != null)
+            {
+                return Ok(product.Properties);
+            }
+
+            return NotFound();
         }
     }
 }
