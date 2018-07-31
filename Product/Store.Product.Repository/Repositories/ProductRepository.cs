@@ -63,12 +63,27 @@ namespace Store.Product.Repositories
 
         public async Task RemovePropertyAsync(string propertyKey, string productKey)
         {
-            throw new NotImplementedException();
+            if(propertyKey != null && productKey != null)
+            {
+                var product = await _dataAccess.SelectByQueryAsync<Domain.Entities.Product>(c => c.Key == productKey && c.Properties.Select(p => p.Name).Contains(propertyKey));
+
+                if(product != null)
+                {
+                    var property = product.Properties.FirstOrDefault(p => p.Name == propertyKey);
+
+                    product.Properties.Remove(property);
+
+                    await _dataAccess.UpdateAsync(product, productKey);
+                }
+            }
         }
 
         public async Task UpdateProductAsync(Domain.Entities.Product product, string productKey)
         {
-            throw new NotImplementedException();
+            if(productKey != null && product != null)
+            {
+                await _dataAccess.UpdateAsync(product, productKey);
+            }
         }
     }
 }
