@@ -11,7 +11,7 @@ namespace Store.Product.Domain.Services
         Task AddOrUpdatePropertyAsync(Property property, string productKey);
         Task<Entities.Product> GetProductByKeyAsync(string key);
         Task<IPagingList<Entities.Product>> GetProductsAsync(int page, int recordsPerPage);
-        Task UpdateProduct(Entities.Product product, string productKey);
+        Task UpdateProduct(string productKey, string productName);
         Task RemoveProperty(string propertyKey, string productKey);
         Task DisableProduct(string productKey);
     }

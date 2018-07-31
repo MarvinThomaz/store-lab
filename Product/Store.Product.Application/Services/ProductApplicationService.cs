@@ -57,12 +57,7 @@ namespace Store.Product.Application.Services
         {
             if (productKey != null)
             {
-                var product = await _repository.GetProductByKeyAsync(productKey);
-
-                product.IsDeleted = true;
-                product.ModifiedOn = DateTime.UtcNow;
-
-                await _repository.UpdateProductAsync(product, productKey);
+                await _repository.UpdateDeletedStatusOfProductAsync(productKey, true, DateTime.UtcNow);
             }
         }
 
@@ -116,22 +111,11 @@ namespace Store.Product.Application.Services
             }
         }
 
-        public async Task UpdateProduct(Domain.Entities.Product product, string productKey)
+        public async Task UpdateProduct(string productKey, string productName)
         {
-            var errors = product.ValidateEntity();
-
-            if (!errors.IsValid)
+            if (productName != null && productName.Count() >= 2 && productName.Count() <= 50)
             {
-                throw new EntityExcpetion(errors);
-            }
-
-            var persistedProduct = await _repository.GetProductByKeyAsync(productKey);
-
-            if (persistedProduct.Name != product.Name)
-            {
-                persistedProduct.Name = product.Name;
-
-                await _repository.UpdateProductAsync(product, productKey);
+                await _repository.UpdateNameOfProductAsync(productKey, productName, DateTime.UtcNow);
             }
         }
     }

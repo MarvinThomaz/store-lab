@@ -45,5 +45,27 @@ namespace Store.Product.Repositories
                 await _dataAccess.UpdateAsync(product, productKey);
             }
         }
+
+        public async Task UpdateDeletedStatusOfProductAsync(string productKey, bool isDeleted, DateTime modifiedOn)
+        {
+            var properties = new Dictionary<string, object>
+            {
+                { nameof(Domain.Entities.Product.IsDeleted), isDeleted },
+                { nameof(Domain.Entities.Product.ModifiedOn), modifiedOn }
+            };
+
+            await _dataAccess.UpdateAsync<Domain.Entities.Product>(productKey, properties);
+        }
+
+        public async Task UpdateNameOfProductAsync(string productKey, string name, DateTime modifiedOn)
+        {
+            var properties = new Dictionary<string, object>
+            {
+                { nameof(Domain.Entities.Product.Name), name },
+                { nameof(Domain.Entities.Product.ModifiedOn), modifiedOn }
+            };
+
+            await _dataAccess.UpdateAsync<Domain.Entities.Product>(productKey, properties);
+        }
     }
 }

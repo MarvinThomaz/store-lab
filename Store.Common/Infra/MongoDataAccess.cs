@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -90,6 +91,24 @@ namespace Store.Common.Infra
             var query = $"{{'_id': '{key}'}}";
 
             await collection.ReplaceOneAsync(query, entity);
+        }
+
+        public async Task UpdateAsync<T>(string key, IDictionary<string, object> properties)
+        {
+            var type = typeof(T);
+            var entity = await SelectByKeyAsync<T>(key);
+
+            foreach (var item in properties)
+            {
+                var property = type.GetProperty(item.Key);
+
+                if(property != null)
+                {
+                    property.SetValue(entity, item.Value);
+                }
+            }
+
+            await UpdateAsync(entity, key);
         }
     }
 }

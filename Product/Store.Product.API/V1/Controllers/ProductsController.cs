@@ -46,13 +46,14 @@ namespace Store.Product.API.V1.Controllers
         [Route("{key}")]
         public async Task<IActionResult> UpdateProductAsync(string key, [FromBody] UpdateProductRequest request, [FromServices] IMapper<UpdateProductRequest, ProductEntity> mapper)
         {
-            var product = mapper.Map(request);
+            if (ModelState.IsValid)
+            {
+                await _service.UpdateProduct(key, request.Name);
 
-            product.Key = key;
+                return Ok();
+            }
 
-            await _service.UpdateProduct(product, key);
-
-            return Ok();
+            return BadRequest();
         }
 
         [HttpDelete]
