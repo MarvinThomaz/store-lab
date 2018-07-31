@@ -125,7 +125,14 @@ namespace Store.Product.Application.Services
                 throw new EntityExcpetion(errors);
             }
 
-            await _repository.UpdateProductAsync(product, productKey);
+            var persistedProduct = await _repository.GetProductByKeyAsync(productKey);
+
+            if (persistedProduct.Name != product.Name)
+            {
+                persistedProduct.Name = product.Name;
+
+                await _repository.UpdateProductAsync(product, productKey);
+            }
         }
     }
 }

@@ -1,10 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Store.Common.Entities;
 using Store.Common.Infra;
-using Store.Product.API.V1.Mappers;
 using Store.Product.API.V1.Models.Request;
 using Store.Product.Domain.Services;
 using ProductEntity = Store.Product.Domain.Entities.Product;
@@ -45,9 +42,24 @@ namespace Store.Product.API.V1.Controllers
 
         [HttpPut]
         [Route("{key}")]
-        public async Task<IActionResult> UpdateProductAsync([FromBody] UpdateProductRequest request)
+        public async Task<IActionResult> UpdateProductAsync(string key, [FromBody] UpdateProductRequest request, [FromServices] IMapper<UpdateProductRequest, ProductEntity> mapper)
         {
+            var product = mapper.Map(request);
+
+            product.Key = key;
+
+            await _service.UpdateProduct(product, key);
+
             return Ok();
+        }
+
+        [HttpDelete]
+        [Route("{key}")]
+        public async Task<IActionResult> DisableProduct(string key)
+        {
+            await _service.DisableProduct(key);
+
+            return NoContent();
         }
 
         [HttpGet]

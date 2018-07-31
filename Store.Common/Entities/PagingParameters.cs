@@ -2,7 +2,42 @@
 {
     public class PagingParameters
     {
-        public int Page { get; set; }
-        public int RercordsPerPage { get; set; }
+        private int _page;
+        private int _recordsPerPage;
+
+        public int Page 
+        { 
+            get 
+            {
+                if (_page == 0)
+                {
+                    return 1;
+                }
+
+                return _page;
+            } 
+
+            set => _page = value;
+        }
+
+        public int RercordsPerPage
+        {
+            get
+            {
+                if (_recordsPerPage == 0)
+                {
+                    _recordsPerPage = 10;
+                }
+
+                if (_recordsPerPage > 200)
+                {
+                    _recordsPerPage = 200;
+                }
+
+                return _recordsPerPage;
+            }
+
+            set => _recordsPerPage = value;
+        }
     }
 }
