@@ -11,9 +11,9 @@ namespace Store.Product.API.V1.Controllers
     [Route("v1/products/{key}/[controller]")]
     public class PropertiesController : Controller
     {
-        private const string GetPropertiesByProductRouteName = "GetPropertiesByProduct";
-        private readonly IUrlHelper _urlHelper;
+        public const string GetPropertiesByProductRouteName = "GetPropertiesByProduct";
 
+        private readonly IUrlHelper _urlHelper;
         private readonly IProductApplicationService _service;
 
         public PropertiesController(IProductApplicationService service, IUrlHelper urlHelper)
@@ -32,7 +32,7 @@ namespace Store.Product.API.V1.Controllers
 
                 await _service.AddOrUpdatePropertyAsync(property, key);
 
-                var link = _urlHelper.Link(GetPropertiesByProductRouteName, new { key = key });
+                var link = _urlHelper.Link(GetPropertiesByProductRouteName, new { controller = "properties", key = key });
 
                 return Created(link, link);
             }

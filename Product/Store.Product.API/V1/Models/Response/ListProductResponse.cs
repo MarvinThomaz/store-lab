@@ -7,6 +7,7 @@ namespace Store.Product.API.V1.Models.Response
         public string Key { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
+        public string Properties { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
     }
