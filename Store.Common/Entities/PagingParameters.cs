@@ -20,7 +20,7 @@
             set => _page = value;
         }
 
-        public int RercordsPerPage
+        public int RecordsPerPage
         {
             get
             {

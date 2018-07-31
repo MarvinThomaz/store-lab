@@ -2,19 +2,19 @@
 
 namespace Store.Common.List
 {
-    public class PagingList<T> : List<T>, IPagingList<T>
+    public class PagingList<T> : IPagingList<T>
     {
-        public PagingList(int page, int recordsPerPage, int totalRecords, List<T> list)
+        public PagingList(int page, int recordsPerPage, int totalRecords, IEnumerable<T> records)
         {
             Page = page;
             RecordsPerPage = recordsPerPage;
             TotalRecords = totalRecords;
-
-            AddRange(list);
+            Records = records;
         }
 
         public int Page { get; }
         public int RecordsPerPage { get; }
         public int TotalRecords { get; }
+        public IEnumerable<T> Records { get; }
     }
 }

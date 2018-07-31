@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Store.Common.Entities;
 using Store.Common.Infra;
+using Store.Common.List;
 using Store.Product.API.V1.Models.Request;
 using Store.Product.API.V1.Models.Response;
 using Store.Product.Domain.Services;
@@ -80,9 +81,9 @@ namespace Store.Product.API.V1.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsAsync([FromQuery] PagingParameters parameters, [FromServices] IMapper<IEnumerable<Domain.Entities.Product>, IEnumerable<ListProductResponse>> mapper)
+        public async Task<IActionResult> GetProductsAsync([FromQuery] PagingParameters parameters, [FromServices] IMapper<IPagingList<Domain.Entities.Product>, IPagingList<ListProductResponse>> mapper)
         {
-            var list = await _service.GetProductsAsync(parameters.Page, parameters.RercordsPerPage);
+            var list = await _service.GetProductsAsync(parameters.Page, parameters.RecordsPerPage);
             var result = mapper.Map(list);
 
             return Ok(result);
