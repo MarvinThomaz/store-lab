@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Store.Common.Entities;
+using Store.Common.Infra;
 using Store.Product.API.V1.Mappers;
 using Store.Product.API.V1.Models.Request;
 using Store.Product.Domain.Services;
@@ -40,6 +41,13 @@ namespace Store.Product.API.V1.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpPut]
+        [Route("{key}")]
+        public async Task<IActionResult> UpdateProductAsync([FromBody] UpdateProductRequest request)
+        {
+            return Ok();
         }
 
         [HttpGet]

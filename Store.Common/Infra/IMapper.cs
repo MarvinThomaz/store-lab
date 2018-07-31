@@ -1,4 +1,4 @@
-namespace Store.Product.API.V1.Mappers
+namespace Store.Common.Infra
 {
     public interface IMapper<TSource, TDestination>
     {

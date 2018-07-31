@@ -48,18 +48,6 @@ namespace Store.Product.Tests.Application.Services
         }
 
         [Fact]
-        public async Task AddPropertyToProduct()
-        {
-            var service = new ProductApplicationService(_repository);
-            var property = Builder<Property>.CreateNew().Build();
-            var key = KeyGenerator.New();
-
-            await service.AddOrUpdatePropertyAsync(property, key);
-
-            await _repository.Received(1).AddOrUpdatePropertyAsync(property, key);
-        }
-
-        [Fact]
         public async Task GetProductByKey()
         {
             var service = new ProductApplicationService(_repository);

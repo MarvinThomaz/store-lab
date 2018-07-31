@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Store.Common.Config;
 using Store.Common.Exceptions;
 using Store.Common.Extensions;
@@ -27,7 +30,27 @@ namespace Store.Product.Application.Services
                 throw new EntityExcpetion(errors);
             }
 
-            await _repository.AddOrUpdatePropertyAsync(property, productKey);
+            var product = await _repository.GetProductByKeyAsync(productKey);
+
+            if (product.Properties == null)
+            {
+                product.Properties = new List<Property>();
+            }
+
+            if (product.Properties?.Any(p => p.Name == property.Name) == true)
+            {
+                var persistedProperty = product.Properties.FirstOrDefault(p => p.Name == property.Name);
+
+                persistedProperty.Value = property.Value;
+            }
+            else
+            {
+                product.Properties.Add(property);
+            }
+
+            product.ModifiedOn = DateTime.UtcNow;
+
+            await _repository.UpdateProductAsync(product, product.Key);
         }
 
         public async Task DisableProduct(string productKey)
@@ -37,6 +60,7 @@ namespace Store.Product.Application.Services
                 var product = await _repository.GetProductByKeyAsync(productKey);
 
                 product.IsDeleted = true;
+                product.ModifiedOn = DateTime.UtcNow;
 
                 await _repository.UpdateProductAsync(product, productKey);
             }
@@ -73,11 +97,34 @@ namespace Store.Product.Application.Services
 
         public async Task RemoveProperty(string propertyKey, string productKey)
         {
-            await _repository.RemovePropertyAsync(propertyKey, productKey);
+            if (propertyKey != null && productKey != null)
+            {
+                var product = await _repository.GetProductByKeyAsync(productKey);
+
+                if (product != null)
+                {
+                    var property = product.Properties.FirstOrDefault(p => p.Name == propertyKey);
+
+                    if (property != null)
+                    {
+                        product.Properties.Remove(property);
+                        product.ModifiedOn = DateTime.UtcNow;
+
+                        await _repository.UpdateProductAsync(product, productKey);
+                    }
+                }
+            }
         }
 
         public async Task UpdateProduct(Domain.Entities.Product product, string productKey)
         {
+            var errors = product.ValidateEntity();
+
+            if (!errors.IsValid)
+            {
+                throw new EntityExcpetion(errors);
+            }
+
             await _repository.UpdateProductAsync(product, productKey);
         }
     }

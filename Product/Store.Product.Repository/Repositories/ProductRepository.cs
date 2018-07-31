@@ -18,29 +18,6 @@ namespace Store.Product.Repositories
             _dataAccess = dataAccess;
         }
 
-        public async Task AddOrUpdatePropertyAsync(Property property, string productKey)
-        {
-            var product = await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(productKey);
-            
-            if(product.Properties == null)
-            {
-                product.Properties = new List<Property>();
-            }
-
-            if(product.Properties?.Any(p => p.Name == property.Name) == true)
-            {
-                var persistedProperty = product.Properties.FirstOrDefault(p => p.Name == property.Name);
-
-                persistedProperty.Value = property.Value;
-            }
-            else
-            {
-                product.Properties.Add(property);
-            }
-
-            await _dataAccess.UpdateAsync(product, product.Key);
-        }
-
         public async Task CreateProductAsync(Domain.Entities.Product product)
         {
             await _dataAccess.InsertAsync(product);
@@ -59,23 +36,6 @@ namespace Store.Product.Repositories
             }
 
             return await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(key);
-        }
-
-        public async Task RemovePropertyAsync(string propertyKey, string productKey)
-        {
-            if(propertyKey != null && productKey != null)
-            {
-                var product = await _dataAccess.SelectByQueryAsync<Domain.Entities.Product>(c => c.Key == productKey && c.Properties.Select(p => p.Name).Contains(propertyKey));
-
-                if(product != null)
-                {
-                    var property = product.Properties.FirstOrDefault(p => p.Name == propertyKey);
-
-                    product.Properties.Remove(property);
-
-                    await _dataAccess.UpdateAsync(product, productKey);
-                }
-            }
         }
 
         public async Task UpdateProductAsync(Domain.Entities.Product product, string productKey)

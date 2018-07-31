@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using FizzWare.NBuilder;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
+using Store.Common.Infra;
 using Store.Product.API.V1.Controllers;
 using Store.Product.API.V1.Mappers;
 using Store.Product.API.V1.Models.Request;
