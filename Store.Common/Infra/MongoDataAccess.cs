@@ -17,9 +17,13 @@ namespace Store.Common.Infra
             _mongoDataBase = mongoDataBase;
         }
 
-        public Task DeleteAsync(string key)
+        public async Task DeleteAsync<T>(string key)
         {
-            throw new NotImplementedException();
+            var query = $"{{'_id': '{key}'}}";
+            var entityName = typeof(T).Name;
+            var collection = _mongoDataBase.GetCollection<T>(entityName);
+
+            await collection.DeleteOneAsync(query);
         }
 
         public async Task InsertAsync<T>(T entity)
@@ -45,9 +49,19 @@ namespace Store.Common.Infra
             });
         }
 
-        public Task<IPagingList<T>> SelectAllByQueryAsync<T>(Expression<Func<T, bool>> query, string page, string recordsPerPage)
+        public async Task<IPagingList<T>> SelectAllByQueryAsync<T>(Expression<Func<T, bool>> query, int page, int recordsPerPage)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            {
+                var entityName = typeof(T).Name;
+                var collection = _mongoDataBase.GetCollection<T>(entityName);
+                var offset = (page - 1) * recordsPerPage;
+                var queryable = collection.AsQueryable().Where(query);
+                var totalRecords = queryable.Skip(offset).Count();
+                var list = queryable.Skip(offset).Take(recordsPerPage).ToList();
+
+                return list.ToPagingList(page, recordsPerPage, totalRecords);
+            });
         }
 
         public async Task<T> SelectByKeyAsync<T>(string key)
@@ -60,9 +74,13 @@ namespace Store.Common.Infra
             return await entities?.FirstAsync();
         }
 
-        public Task<T> SelectByQueryAsync<T>(Expression<Func<T, bool>> query)
+        public async Task<T> SelectByQueryAsync<T>(Expression<Func<T, bool>> query)
         {
-            throw new NotImplementedException();
+            var entityName = typeof(T).Name;
+            var collection = _mongoDataBase.GetCollection<T>(entityName);
+            var entities = await collection.FindAsync(query);
+
+            return await entities?.FirstAsync();
         }
 
         public async Task UpdateAsync<T>(T entity, string key)

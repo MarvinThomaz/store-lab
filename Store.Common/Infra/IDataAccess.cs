@@ -9,10 +9,10 @@ namespace Store.Common.Infra
     {
         Task InsertAsync<T>(T entity);
         Task UpdateAsync<T>(T entity, string key);
-        Task DeleteAsync(string key);
+        Task DeleteAsync<T>(string key);
         Task<T> SelectByKeyAsync<T>(string key);
         Task<T> SelectByQueryAsync<T>(Expression<Func<T, bool>> query);
         Task<IPagingList<T>> SelectAsync<T>(int page, int recordsPerPage);
-        Task<IPagingList<T>> SelectAllByQueryAsync<T>(Expression<Func<T, bool>> query, string page, string recordsPerPage);
+        Task<IPagingList<T>> SelectAllByQueryAsync<T>(Expression<Func<T, bool>> query, int page, int recordsPerPage);
     }
 }
