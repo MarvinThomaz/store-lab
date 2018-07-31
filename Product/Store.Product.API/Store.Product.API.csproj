@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Folder Include="V1\" />
+    <Folder Include="V1\Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Store.Product.Domain\Store.Product.Domain.csproj" />
+    <ProjectReference Include="..\Store.Product.Repository\Store.Product.Repository.csproj" />
+    <ProjectReference Include="..\Store.Product.Application\Store.Product.Application.csproj" />
+    <ProjectReference Include="..\..\Store.Common\Store.Common.csproj" />
+  </ItemGroup>
+
+</Project>
