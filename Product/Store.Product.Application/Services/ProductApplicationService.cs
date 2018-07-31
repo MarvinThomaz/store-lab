@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Store.Common.Config;
 using Store.Common.Exceptions;
 using Store.Common.Extensions;
@@ -31,6 +30,18 @@ namespace Store.Product.Application.Services
             await _repository.AddOrUpdatePropertyAsync(property, productKey);
         }
 
+        public async Task DisableProduct(string productKey)
+        {
+            if (productKey != null)
+            {
+                var product = await _repository.GetProductByKeyAsync(productKey);
+
+                product.IsDeleted = true;
+
+                await _repository.UpdateProductAsync(product, productKey);
+            }
+        }
+
         public async Task<Domain.Entities.Product> GetProductByKeyAsync(string key)
         {
             if(key == null)
@@ -58,6 +69,16 @@ namespace Store.Product.Application.Services
             }
 
             await _repository.CreateProductAsync(product);
+        }
+
+        public async Task RemoveProperty(string propertyKey, string productKey)
+        {
+            await _repository.RemovePropertyAsync(propertyKey, productKey);
+        }
+
+        public async Task UpdateProduct(Domain.Entities.Product product, string productKey)
+        {
+            await _repository.UpdateProductAsync(product, productKey);
         }
     }
 }
