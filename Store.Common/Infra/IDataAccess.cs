@@ -12,7 +12,7 @@ namespace Store.Common.Infra
         Task DeleteAsync(string key);
         Task<T> SelectByKeyAsync<T>(string key);
         Task<T> SelectByQueryAsync<T>(Expression<Func<T, bool>> query);
-        Task<IPagingList<T>> SelectAsync<T>(string page, string recordsPerPage);
+        Task<IPagingList<T>> SelectAsync<T>(int page, int recordsPerPage);
         Task<IPagingList<T>> SelectAllByQueryAsync<T>(Expression<Func<T, bool>> query, string page, string recordsPerPage);
     }
 }

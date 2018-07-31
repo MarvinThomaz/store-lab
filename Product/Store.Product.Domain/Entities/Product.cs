@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using Store.Common.Attributes;
 using Store.Common.Entities;
@@ -22,6 +21,9 @@ namespace Store.Product.Domain.Entities
         [MaxLength(50)]
         [MinLength(2)]
         public string Name { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
 
         public List<Property> Properties { get; set; }
     }

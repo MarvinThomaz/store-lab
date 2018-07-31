@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Store.Common.List
 {
-	public interface IPagingList<T> : IList<T>
+    public interface IPagingList<T> : IReadOnlyList<T>
     {
-        int Page { get; set; }
-        int RecordsPerPage { get; set; }
-        int TotalRecords { get; set; }
+        int Page { get; }
+        int RecordsPerPage { get; }
+        int TotalRecords { get; }
     }
 }

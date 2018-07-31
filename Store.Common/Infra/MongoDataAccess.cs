@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Store.Common.Extensions;
 using Store.Common.List;
 
 namespace Store.Common.Infra
@@ -28,9 +30,19 @@ namespace Store.Common.Infra
             await collection.InsertOneAsync(entity);
         }
 
-        public Task<IPagingList<T>> SelectAsync<T>(string page, string recordsPerPage)
+        public async Task<IPagingList<T>> SelectAsync<T>(int page, int recordsPerPage)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            { 
+                var entityName = typeof(T).Name;
+                var collection = _mongoDataBase.GetCollection<T>(entityName);
+                var offset = (page - 1) * recordsPerPage;
+                var query = collection.AsQueryable();
+                var totalRecords = query.Skip(offset).Count();
+                var list = query.Skip(offset).Take(recordsPerPage).ToList();
+
+                return list.ToPagingList(page, recordsPerPage, totalRecords);
+            });
         }
 
         public Task<IPagingList<T>> SelectAllByQueryAsync<T>(Expression<Func<T, bool>> query, string page, string recordsPerPage)
