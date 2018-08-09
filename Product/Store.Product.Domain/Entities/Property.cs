@@ -1,6 +1,4 @@
-﻿using System;
-using Store.Common.Attributes;
-using Store.Common.Entities;
+﻿using Store.Common.Attributes;
 
 namespace Store.Product.Domain.Entities
 {

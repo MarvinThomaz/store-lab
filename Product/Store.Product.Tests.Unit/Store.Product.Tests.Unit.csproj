@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Integration\**" />
+    <EmbeddedResource Remove="Integration\**" />
+    <None Remove="Integration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="SpecFlow.xUnit" Version="2.3.2" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="NSubstitute" Version="3.1.0" />
+    <PackageReference Include="NBuilder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Unit\Application\" />
+    <Folder Include="Unit\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="UnitTest1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\Store.Product.Application\Store.Product.Application.csproj" />
+    <ProjectReference Include="..\Store.Product.Repository\Store.Product.Repository.csproj" />
+    <ProjectReference Include="..\Store.Product.API\Store.Product.API.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove=".DS_Store" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Acceptance\CreateProduct.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateProduct.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Acceptance\CreateProductStepDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Acceptance\CreateProduct.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CreateProduct.feature.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+</Project>

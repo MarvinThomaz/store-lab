@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B9D3A9DF-0A81-4A22-9BDD-9A4AC5A16206}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Store.Product.Tests.Acceptance</RootNamespace>
+    <AssemblyName>Store.Product.Tests.Acceptance</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Product\CreateProduct.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateProduct.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Product\CreateProductSetpDefinition.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Product\CreateProduct.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CreateProduct.feature.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk">
+      <Version>15.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="NSubstitute">
+      <Version>3.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.10.1</Version>
+    </PackageReference>
+    <PackageReference Include="Specflow.NCrunch">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="SpecFlow.xUnit">
+      <Version>2.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio">
+      <Version>2.4.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Store.Common\Store.Common.csproj">
+      <Project>{ada797ee-f7b2-4f51-8931-fc0ab1807e46}</Project>
+      <Name>Store.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Product.Application\Store.Product.Application.csproj">
+      <Project>{b4ca2da7-46de-48c7-8001-0fe37f7ccf8b}</Project>
+      <Name>Store.Product.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Product.Domain\Store.Product.Domain.csproj">
+      <Project>{bb7c9312-80b2-49ab-a820-93a43c9e236c}</Project>
+      <Name>Store.Product.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Product.Repository\Store.Product.Repository.csproj">
+      <Project>{ab10ba07-baff-49e1-b527-12aa4cb1d23b}</Project>
+      <Name>Store.Product.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
