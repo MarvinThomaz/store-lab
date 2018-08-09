@@ -16,7 +16,6 @@
     <Folder Include="Services\" />
     <Folder Include="Repositories\" />
     <Folder Include="Events\" />
-    <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Store.Common\Store.Common.csproj" />
