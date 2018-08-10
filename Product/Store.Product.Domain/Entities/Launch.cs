@@ -18,5 +18,8 @@ namespace Store.Product.Domain.Entities
         
         [Required]
         public decimal Value { get; set; }
+
+        [Required]
+        public bool IsAvailable { get; set; }
     }
 }

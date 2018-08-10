@@ -18,6 +18,16 @@ namespace Store.Product.Repositories
             _dataAccess = dataAccess;
         }
 
+        public Task AddLaunchInProduct(string productKey, Launch launch, DateTime modifiedOn)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddOrUpdatePropertyInProduct(string productKey, string propertyName, string propertyValue, DateTime modifiedOn)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task CreateProductAsync(Domain.Entities.Product product)
         {
             await _dataAccess.InsertAsync(product);
@@ -36,6 +46,21 @@ namespace Store.Product.Repositories
             }
 
             return await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(key);
+        }
+
+        public Task RemovePropertyFromProduct(string productKey, string propertyName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateLaunchAvailableStatusInProduct(string productKey, string launchKey, bool isAvailable, DateTime modifiedOn)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdatePriceOfProduct(string productKey, Price price, DateTime modifiedOn)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task UpdateProductAsync(Domain.Entities.Product product, string productKey)
