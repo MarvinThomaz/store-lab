@@ -42,5 +42,19 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj">
+      <Project>{89947549-e60d-48a3-8920-a79b0fe67eef}</Project>
+      <Name>Store.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Auth.Application\Store.Auth.Application.csproj">
+      <Project>{0d63892b-a386-42ae-b56a-5ca08fb46167}</Project>
+      <Name>Store.Auth.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Auth.Domain\Store.Auth.Domain.csproj">
+      <Project>{49971ede-e4be-4126-b770-3e0b78e2096b}</Project>
+      <Name>Store.Auth.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

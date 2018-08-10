@@ -42,5 +42,15 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj">
+      <Project>{755788e5-7f9d-4994-b6ef-5199aae39903}</Project>
+      <Name>Store.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Gateway.Application\Store.Gateway.Application.csproj">
+      <Project>{93bd5a09-da09-4aa0-8126-cfea83dd27c9}</Project>
+      <Name>Store.Gateway.Application</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,4 +13,10 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\Store.Gateway.Application\Store.Gateway.Application.csproj" />
+    <ProjectReference Include="..\Store.Gatweay.API\Store.Gatweay.API.csproj" />
+  </ItemGroup>
+
 </Project>

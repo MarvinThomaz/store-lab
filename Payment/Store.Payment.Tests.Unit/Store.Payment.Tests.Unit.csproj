@@ -13,4 +13,12 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\Store.Payment.API\Store.Payment.API.csproj" />
+    <ProjectReference Include="..\Store.Payment.Application\Store.Payment.Application.csproj" />
+    <ProjectReference Include="..\Store.Payment.Domain\Store.Payment.Domain.csproj" />
+    <ProjectReference Include="..\Store.Payment.Repository\Store.Payment.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

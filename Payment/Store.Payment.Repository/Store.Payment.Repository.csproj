@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\Store.Payment.Domain\Store.Payment.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

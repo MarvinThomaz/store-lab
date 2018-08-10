@@ -13,4 +13,11 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\Store.Auth.API\Store.Auth.API.csproj" />
+    <ProjectReference Include="..\Store.Auth.Application\Store.Auth.Application.csproj" />
+    <ProjectReference Include="..\Store.Auth.Domain\Store.Auth.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -16,4 +16,11 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\Store.Payment.Application\Store.Payment.Application.csproj" />
+    <ProjectReference Include="..\Store.Payment.Domain\Store.Payment.Domain.csproj" />
+    <ProjectReference Include="..\Store.Payment.Repository\Store.Payment.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

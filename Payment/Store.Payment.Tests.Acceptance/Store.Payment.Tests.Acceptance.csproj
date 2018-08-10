@@ -42,5 +42,19 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Store.Payment.Application\Store.Payment.Application.csproj">
+      <Project>{ca1e3c44-3b6b-4188-8bca-50515f0fa321}</Project>
+      <Name>Store.Payment.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Payment.Domain\Store.Payment.Domain.csproj">
+      <Project>{da0de92d-b3f2-49a8-9a13-0e3f9d7eef5e}</Project>
+      <Name>Store.Payment.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Payment.Repository\Store.Payment.Repository.csproj">
+      <Project>{394f195c-6ec4-4f35-84ef-00627ff8b58a}</Project>
+      <Name>Store.Payment.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,4 +16,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\Store.Auth.Application\Store.Auth.Application.csproj" />
+    <ProjectReference Include="..\Store.Auth.Domain\Store.Auth.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
