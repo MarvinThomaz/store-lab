@@ -3,6 +3,7 @@ using Store.Common.List;
 using Store.Product.Domain.Entities;
 using Store.Product.Domain.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Store.Product.Repositories
@@ -66,32 +67,57 @@ namespace Store.Product.Repositories
             return await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(key);
         }
 
-        public Task RemovePropertyFromProductAsync(string productKey, string propertyName)
+        public async Task RemovePropertyFromProductAsync(string productKey, string propertyName, DateTime modifiedOn)
         {
-            throw new NotImplementedException();
+            var product = await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(productKey);
+
+            product.Properties.RemoveAll(p => p.Name == propertyName);
+            product.ModifiedOn = modifiedOn;
+
+            await _dataAccess.UpdateAsync(product, productKey);
+
         }
 
-        public Task UpdateEnableProductStatusAsync(string productKey, bool isEnabled)
+        public async Task UpdateEnableProductStatusAsync(string productKey, bool isEnabled, DateTime modifiedOn)
         {
-            throw new NotImplementedException();
+            var properties = new Dictionary<string, object>
+            {
+                { "IsEnabled", isEnabled },
+                { "ModifiedOn", modifiedOn }
+            };
+
+            await _dataAccess.UpdateAsync<Domain.Entities.Product>(properties, productKey);
         }
 
-        public Task UpdateLaunchAvailableStatusInProductAsync(string productKey, string launchKey, bool isAvailable, DateTime modifiedOn)
+        public async Task UpdateLaunchAvailableStatusInProductAsync(string productKey, string launchKey, bool isAvailable, DateTime modifiedOn)
         {
-            throw new NotImplementedException();
+            var product = await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(productKey);
+
+            product.Launches.ForEach(l =>
+            {
+                if (l.Key == launchKey)
+                    l.IsAvailable = isAvailable;
+            });
+
+            product.ModifiedOn = modifiedOn;
+
+            await _dataAccess.UpdateAsync(product, productKey);
         }
 
-        public Task UpdatePriceOfProductAsync(string productKey, Price price, DateTime modifiedOn)
+        public async Task UpdatePriceOfProductAsync(string productKey, Price price, DateTime modifiedOn)
         {
-            throw new NotImplementedException();
+            var properties = new Dictionary<string, object>
+            {
+                { "Price", price },
+                { "ModifiedOn", modifiedOn }
+            };
+
+            await _dataAccess.UpdateAsync<Domain.Entities.Product>(properties, productKey);
         }
 
         public async Task UpdateProductAsync(Domain.Entities.Product product, string productKey)
         {
-            if(productKey != null && product != null)
-            {
-                await _dataAccess.UpdateAsync(product, productKey);
-            }
+            await _dataAccess.UpdateAsync(product, productKey);
         }
     }
 }

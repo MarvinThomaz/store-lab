@@ -9,12 +9,12 @@ namespace Store.Product.Domain.Repositories
     {
         Task CreateProductAsync(Entities.Product product);
         Task UpdateProductAsync(Entities.Product product, string productKey);
-        Task UpdateEnableProductStatusAsync(string productKey, bool isEnabled);
+        Task UpdateEnableProductStatusAsync(string productKey, bool isEnabled, DateTime modifiedOn);
         Task<Entities.Product> GetProductByKeyAsync(string productKey);
         Task<IPagingList<Entities.Product>> GetAllProductsAsync(int page, int recordsPerPage);
         Task AddPropertyInProductAsync(string productKey, ProductProperty property, DateTime modifiedOn);
         Task UpdatePropertyInProductAsync(string productKey, ProductProperty property, DateTime modifiedOn);
-        Task RemovePropertyFromProductAsync(string productKey, string propertyName);
+        Task RemovePropertyFromProductAsync(string productKey, string propertyName, DateTime modifiedOn);
         Task UpdatePriceOfProductAsync(string productKey, Price price, DateTime modifiedOn);
         Task AddLaunchInProductAsync(string productKey, Launch launch, DateTime modifiedOn);
         Task UpdateLaunchAvailableStatusInProductAsync(string productKey, string launchKey, bool isAvailable, DateTime modifiedOn);
