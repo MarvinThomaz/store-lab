@@ -50,7 +50,7 @@ namespace Store.Product.API.V1.Controllers
 
             product.Key = key;
 
-            await _service.UpdateProduct(product, key);
+            await _service.UpdateProductAsync(product, key);
 
             return Ok();
         }
@@ -59,7 +59,7 @@ namespace Store.Product.API.V1.Controllers
         [Route("{key}")]
         public async Task<IActionResult> DisableProduct(string key)
         {
-            await _service.DisableProduct(key);
+            await _service.DisableProductAsync(key);
 
             return NoContent();
         }

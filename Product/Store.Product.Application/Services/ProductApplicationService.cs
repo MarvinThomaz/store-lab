@@ -21,6 +21,11 @@ namespace Store.Product.Application.Services
             _repository = repository;
         }
 
+        public Task AddLaunchToProductAsync(string productKey, Launch launch)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task AddOrUpdatePropertyAsync(ProductProperty property, string productKey)
         {
             var errors = property.ValidateEntity();
@@ -53,7 +58,7 @@ namespace Store.Product.Application.Services
             await _repository.UpdateProductAsync(product, product.Key);
         }
 
-        public async Task DisableProduct(string productKey)
+        public async Task DisableProductAsync(string productKey)
         {
             if (productKey != null)
             {
@@ -95,7 +100,7 @@ namespace Store.Product.Application.Services
             await _repository.CreateProductAsync(product);
         }
 
-        public async Task RemoveProperty(string propertyKey, string productKey)
+        public async Task RemovePropertyAsync(string propertyKey, string productKey)
         {
             if (propertyKey != null && productKey != null)
             {
@@ -116,7 +121,12 @@ namespace Store.Product.Application.Services
             }
         }
 
-        public async Task UpdateProduct(Domain.Entities.Product product, string productKey)
+        public Task UnavailableProductLaunchAsync(string productKey, string launchKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateProductAsync(Domain.Entities.Product product, string productKey)
         {
             var errors = product.ValidateEntity();
 
@@ -133,6 +143,11 @@ namespace Store.Product.Application.Services
 
                 await _repository.UpdateProductAsync(product, productKey);
             }
+        }
+
+        public Task UpdateProductPriceAsync(string productKey, Price price)
+        {
+            throw new NotImplementedException();
         }
     }
 }

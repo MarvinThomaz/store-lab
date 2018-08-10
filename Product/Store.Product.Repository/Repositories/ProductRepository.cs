@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Store.Common.Infra;
+﻿using Store.Common.Infra;
 using Store.Common.List;
 using Store.Product.Domain.Entities;
 using Store.Product.Domain.Repositories;
+using System;
+using System.Threading.Tasks;
 
 namespace Store.Product.Repositories
 {
@@ -23,7 +21,12 @@ namespace Store.Product.Repositories
             throw new NotImplementedException();
         }
 
-        public Task AddOrUpdatePropertyInProduct(string productKey, string propertyName, string propertyValue, DateTime modifiedOn)
+        public Task AddLaunchInProductAsync(string productKey, Launch launch, DateTime modifiedOn)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddOrUpdatePropertyInProductAsync(string productKey, string propertyName, string propertyValue, DateTime modifiedOn)
         {
             throw new NotImplementedException();
         }
@@ -48,17 +51,22 @@ namespace Store.Product.Repositories
             return await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(key);
         }
 
-        public Task RemovePropertyFromProduct(string productKey, string propertyName)
+        public Task RemovePropertyFromProductAsync(string productKey, string propertyName)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateLaunchAvailableStatusInProduct(string productKey, string launchKey, bool isAvailable, DateTime modifiedOn)
+        public Task UpdateEnableProductStatusAsync(string productKey, bool isEnabled)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdatePriceOfProduct(string productKey, Price price, DateTime modifiedOn)
+        public Task UpdateLaunchAvailableStatusInProductAsync(string productKey, string launchKey, bool isAvailable, DateTime modifiedOn)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdatePriceOfProductAsync(string productKey, Price price, DateTime modifiedOn)
         {
             throw new NotImplementedException();
         }

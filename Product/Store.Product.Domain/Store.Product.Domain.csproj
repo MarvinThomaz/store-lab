@@ -5,15 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Events\**" />
+    <EmbeddedResource Remove="Events\**" />
+    <None Remove="Events\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Store.Product.Application\obj\project.assets.json" />
     <None Remove=".DS_Store" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Events\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
@@ -23,5 +25,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DomainResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Delegates\" />
+    <Folder Include="EventArgs\" />
   </ItemGroup>
 </Project>
