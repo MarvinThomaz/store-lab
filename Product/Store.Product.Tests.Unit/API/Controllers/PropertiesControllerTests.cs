@@ -23,8 +23,8 @@ namespace Store.Product.Tests.Unit.API.Controllers
             var controller = new PropertiesController(_service, _urlHelper);
             var key = KeyGenerator.New();
             var request = Builder<CreatePropertyRequest>.CreateNew().Build();
-            var mapper = Substitute.For<IMapper<CreatePropertyRequest, Property>>();
-            var property = Builder<Property>.CreateNew().Build();
+            var mapper = Substitute.For<IMapper<CreatePropertyRequest, ProductProperty>>();
+            var property = Builder<ProductProperty>.CreateNew().Build();
 
             mapper.Map(request).Returns(property);
 

@@ -4,7 +4,7 @@ using Store.Common.Entities;
 
 namespace Store.Product.Domain.Entities
 {
-    public class Price : BaseEntity
+    public class Coin : BaseEntity
     {
         [BsonId]
         [Required]
@@ -13,9 +13,17 @@ namespace Store.Product.Domain.Entities
         public string Key { get; set; }
 
         [Required]
-        public decimal Value { get; set; }
+        [MinLength(2)]
+        [MaxLength(20)]
+        public string Name { get; set; }
 
         [Required]
-        public Coin Coin { get; set; }
+        [MaxLength(5)]
+        public string Reference { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        [MaxLength(20)]
+        public string Country { get; set; }
     }
 }

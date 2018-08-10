@@ -2,7 +2,7 @@
 
 namespace Store.Product.Domain.Entities
 {
-    public class Property
+    public class ProductProperty
     {
         [Required]
         [MaxLength(50)]

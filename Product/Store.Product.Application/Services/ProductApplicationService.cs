@@ -21,7 +21,7 @@ namespace Store.Product.Application.Services
             _repository = repository;
         }
 
-        public async Task AddOrUpdatePropertyAsync(Property property, string productKey)
+        public async Task AddOrUpdatePropertyAsync(ProductProperty property, string productKey)
         {
             var errors = property.ValidateEntity();
 
@@ -34,7 +34,7 @@ namespace Store.Product.Application.Services
 
             if (product.Properties == null)
             {
-                product.Properties = new List<Property>();
+                product.Properties = new List<ProductProperty>();
             }
 
             if (product.Properties?.Any(p => p.Name == property.Name) == true)

@@ -11,7 +11,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         [Fact]
         public void ValidatePropertysName()
         {
-            var property = Builder<Property>.CreateNew()
+            var property = Builder<ProductProperty>.CreateNew()
                                               .With(p => p.Name, null)
                                               .Build();
 
@@ -24,7 +24,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         [Fact]
         public void ValidatePropertiesNameMaxLengthProduct()
         {
-            var properties = Builder<Property>.CreateNew()
+            var properties = Builder<ProductProperty>.CreateNew()
                                               .With(p => p.Name, new string('x', 51))
                                               .Build();
 
@@ -37,7 +37,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         [Fact]
         public void ValidatePropertiesNameMinLengthProduct()
         {
-            var properties = Builder<Property>.CreateNew()
+            var properties = Builder<ProductProperty>.CreateNew()
                                               .With(p => p.Name, "x")
                                               .Build();
 
@@ -50,7 +50,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         [Fact]
         public void ValidatePropertiesValueMaxLengthProduct()
         {
-            var properties = Builder<Property>.CreateNew()
+            var properties = Builder<ProductProperty>.CreateNew()
                                               .With(p => p.Value, new string('x', 257))
                                               .Build();
 

@@ -4,11 +4,11 @@ using Store.Product.Domain.Entities;
 
 namespace Store.Product.API.V1.Mappers
 {
-    public class CreatePropertyRequestToPropertyMapper : IMapper<CreatePropertyRequest, Property>
+    public class CreatePropertyRequestToPropertyMapper : IMapper<CreatePropertyRequest, ProductProperty>
     {
-        public Property Map(CreatePropertyRequest source)
+        public ProductProperty Map(CreatePropertyRequest source)
         {
-            return new Property
+            return new ProductProperty
             {
                 Name = source.Name,
                 Value = source.Value

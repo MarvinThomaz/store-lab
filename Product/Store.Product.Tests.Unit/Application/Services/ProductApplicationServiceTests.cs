@@ -19,7 +19,7 @@ namespace Store.Product.Tests.Unit.Application.Services
         public async Task CreateProductWithProperties()
         {
             var service = new ProductApplicationService(_repository);
-            var properties = Builder<Property>.CreateListOfSize(2).Build();
+            var properties = Builder<ProductProperty>.CreateListOfSize(2).Build();
             var product = Builder<ProductEntity>.CreateNew()
                                         .With(p => p.Key, KeyGenerator.New())
                                         .With(p => p.Properties, properties).Build();

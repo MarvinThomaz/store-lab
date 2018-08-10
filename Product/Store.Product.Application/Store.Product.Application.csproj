@@ -8,7 +8,7 @@
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
     <ProjectReference Include="..\Store.Product.Domain\Store.Product.Domain.csproj" />
-    <ProjectReference Include="..\..\Store.Common\Store.Common.csproj" />
   </ItemGroup>
 </Project>

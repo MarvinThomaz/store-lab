@@ -25,6 +25,14 @@ namespace Store.Product.Domain.Entities
         [Required]
         public bool IsDeleted { get; set; }
 
-        public List<Property> Properties { get; set; }
+        [Required]
+        public Price Price { get; set; }
+
+        [Required]
+        public string ProfilePhoto { get; set; }
+
+        public List<string> Photos { get; set; }
+        public List<ProductProperty> Properties { get; set; }
+        public List<Launch> Launches { get; set; }
     }
 }

@@ -1,10 +1,26 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using Store.Common.Attributes;
+using Store.Common.Entities;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Store.Product.Domain.Entities
 {
-    class ProductGroup
+    public class ProductGroup : BaseEntity
     {
+        [BsonId]
+        [Required]
+        [MaxLength(36)]
+        [MinLength(36)]
+        public string Key { get; set; }
+
+        [Required]
+        public Price Price { get; set; }
+
+        [Required]
+        public string ProfilePhoto { get; set; }
+
+        [Required]
+        public List<Product> Products { get; set; }
+        public List<Launch> Launches { get; set; }
     }
 }

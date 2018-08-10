@@ -23,7 +23,7 @@ namespace Store.Product.API.V1.Controllers
 
         [HttpPost]
         [HttpPut]
-        public async Task<IActionResult> AddOrUpdatePropertyAsync(string key, [FromBody] CreatePropertyRequest request, [FromServices] IMapper<CreatePropertyRequest, Property> mapper)
+        public async Task<IActionResult> AddOrUpdatePropertyAsync(string key, [FromBody] CreatePropertyRequest request, [FromServices] IMapper<CreatePropertyRequest, ProductProperty> mapper)
         {
             if(ModelState.IsValid)
             {

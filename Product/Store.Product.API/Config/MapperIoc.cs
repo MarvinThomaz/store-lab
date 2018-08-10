@@ -16,7 +16,7 @@ namespace Store.Product.API.Config
         {
             services.AddSingleton<IMapper<CreateProductRequest, ProductEntity>, CreateProductRequestToProductMapper>();
             services.AddSingleton<IMapper<LaunchEnum, IEnumerable<LaunchTypesResponse>>, LaunchEnumToLaunchTypesMapper>();
-            services.AddSingleton<IMapper<CreatePropertyRequest, Property>, CreatePropertyRequestToPropertyMapper>();
+            services.AddSingleton<IMapper<CreatePropertyRequest, ProductProperty>, CreatePropertyRequestToPropertyMapper>();
             services.AddSingleton<IMapper<UpdateProductRequest, Domain.Entities.Product>, UpdateProductRequestToProduct>();
             services.AddSingleton<IMapper<IEnumerable<Domain.Entities.Product>, IEnumerable<ListProductResponse>>, ProductToListProductResponseMapper>();
         }

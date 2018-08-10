@@ -8,9 +8,9 @@ namespace Store.Product.API.V1.Mappers
 {
     public class CreateProductRequestToProductMapper : IMapper<CreateProductRequest, ProductEntity>
     {
-        private readonly IMapper<CreatePropertyRequest, Property> _propertyMapper;
+        private readonly IMapper<CreatePropertyRequest, ProductProperty> _propertyMapper;
 
-        public CreateProductRequestToProductMapper(IMapper<CreatePropertyRequest, Property> propertyMapper)
+        public CreateProductRequestToProductMapper(IMapper<CreatePropertyRequest, ProductProperty> propertyMapper)
         {
             _propertyMapper = propertyMapper;
         }
