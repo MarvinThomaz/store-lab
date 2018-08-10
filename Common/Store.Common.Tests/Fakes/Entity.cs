@@ -1,4 +1,4 @@
-namespace Store.Common.Tests.Fakes
+namespace Store.Common.Tests.Unit.Fakes
 {
     public class Entity
     {

@@ -75,7 +75,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Store.Common\Store.Common.csproj">
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj">
       <Project>{ada797ee-f7b2-4f51-8931-fc0ab1807e46}</Project>
       <Name>Store.Common</Name>
     </ProjectReference>

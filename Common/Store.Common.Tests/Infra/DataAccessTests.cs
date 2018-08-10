@@ -4,10 +4,10 @@ using MongoDB.Driver;
 using NSubstitute;
 using Store.Common.Config;
 using Store.Common.Infra;
-using Store.Common.Tests.Fakes;
+using Store.Common.Tests.Unit.Fakes;
 using Xunit;
 
-namespace Store.Common.Tests.Infra
+namespace Store.Common.Tests.Unit.Infra
 {
     public class DataAccessTests
     {

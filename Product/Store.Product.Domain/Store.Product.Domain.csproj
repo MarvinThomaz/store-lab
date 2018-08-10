@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -18,7 +18,7 @@
     <Folder Include="Events\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\DomainResource.resx">
