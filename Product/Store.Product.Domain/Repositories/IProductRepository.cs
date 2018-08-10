@@ -9,6 +9,7 @@ namespace Store.Product.Domain.Repositories
     {
         Task CreateProductAsync(Entities.Product product);
         Task UpdateProductAsync(Entities.Product product, string productKey);
+        Task UpdateEnableProductStatusAsync(string productKey, bool isEnabled);
         Task<Entities.Product> GetProductByKeyAsync(string productKey);
         Task<IPagingList<Entities.Product>> GetAllProductsAsync(int page, int recordsPerPage);
         Task AddOrUpdatePropertyInProductAsync(string productKey, string propertyName, string propertyValue, DateTime modifiedOn);

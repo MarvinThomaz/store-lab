@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Store.Product.Domain.Entities;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Store.Product.Domain.Repositories
 {
-    interface ICoinRepository
+    public interface ICoinRepository
     {
+        Task CreateCoinAsync(Coin coin);
+        Task UpdateCoinAsync(Coin coin, string coinKey);
+        Task<IEnumerable<Coin>> GetAllCoinsAsync();
     }
 }
