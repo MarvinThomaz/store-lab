@@ -115,6 +115,17 @@ namespace Store.Product.Repositories
             await _dataAccess.UpdateAsync<Domain.Entities.Product>(properties, productKey);
         }
 
+        public async Task UpdateProductNameAsync(string productKey, string name, DateTime modifiedOn)
+        {
+            var properties = new Dictionary<string, object>
+            {
+                { "Name", name },
+                { "ModifiedOn", modifiedOn }
+            };
+
+            await _dataAccess.UpdateAsync<Domain.Entities.Product>(properties, productKey);
+        }
+
         public async Task UpdateProductAsync(Domain.Entities.Product product, string productKey)
         {
             await _dataAccess.UpdateAsync(product, productKey);

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Reflection;
-using Store.Common.Attributes;
+﻿using Store.Common.Attributes;
 using Store.Common.Enums;
-using Store.Common.Resources;
+using System.Reflection;
 
 namespace Store.Common.Utils
 {
@@ -12,10 +10,8 @@ namespace Store.Common.Utils
         {
             var enumType = type.GetType();
             var description = enumType.GetCustomAttribute<EnumDescription>();
-            //var message = CommonResource.ResourceManager.GetString(description.Name);
-            var message = type.ToString();
 
-            return message;
+            return description.Name;
         }
     }
 }

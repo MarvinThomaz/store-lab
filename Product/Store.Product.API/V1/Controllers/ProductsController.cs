@@ -42,19 +42,6 @@ namespace Store.Product.API.V1.Controllers
             return BadRequest();
         }
 
-        [HttpPut]
-        [Route("{key}")]
-        public async Task<IActionResult> UpdateProductAsync(string key, [FromBody] UpdateProductRequest request, [FromServices] IMapper<UpdateProductRequest, ProductEntity> mapper)
-        {
-            var product = mapper.Map(request);
-
-            product.Key = key;
-
-            await _service.UpdateProductAsync(product, key);
-
-            return Ok();
-        }
-
         [HttpDelete]
         [Route("{key}")]
         public async Task<IActionResult> DisableProduct(string key)

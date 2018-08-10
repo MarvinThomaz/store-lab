@@ -18,5 +18,6 @@ namespace Store.Product.Domain.Repositories
         Task UpdatePriceOfProductAsync(string productKey, Price price, DateTime modifiedOn);
         Task AddLaunchInProductAsync(string productKey, Launch launch, DateTime modifiedOn);
         Task UpdateLaunchAvailableStatusInProductAsync(string productKey, string launchKey, bool isAvailable, DateTime modifiedOn);
+        Task UpdateProductNameAsync(string productKey, string name, DateTime modifiedOn);
     }
 }

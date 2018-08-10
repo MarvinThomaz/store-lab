@@ -1,21 +1,22 @@
-﻿using System;
-using Store.Common.Attributes;
-using Store.Common.Resources;
+﻿using Store.Common.Attributes;
 
 namespace Store.Common.Enums
 {
     public enum InfoType
     {
-        [EnumDescription("RequiredProperty")]
+        [EnumDescription("Required property value.")]
         RequiredObject = 4220001,
 
-        [EnumDescription("MaxLengthProperty")]
+        [EnumDescription("Invalid property length.")]
         MaxLengthObject = 4220002,
 
-        [EnumDescription("MinLengthObject")]
+        [EnumDescription("Invalid property lentgh.")]
         MinLengthObject = 4220003,
 
-        [EnumDescription("MinLengthObject")]
+        [EnumDescription("An object with this value exists.")]
         UniqueValidationObject = 422004,
+
+        [EnumDescription("Property value cannot be null.")]
+        NullableProperty = 422005,
     }
 }

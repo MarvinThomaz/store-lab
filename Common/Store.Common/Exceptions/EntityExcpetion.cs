@@ -12,6 +12,13 @@ namespace Store.Common.Exceptions
             Errors = errors;
         }
 
+        public EntityExcpetion(params Info[] errors)
+        {
+            Errors = new Errors();
+
+            Errors.AddRange(errors);
+        }
+
         public Errors Errors { get; set; }
     }
 }
