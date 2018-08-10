@@ -34,7 +34,7 @@ namespace Store.Product.Tests.Unit.API.Controllers
 
             mapper.Received(1).Map(request);
             
-            await _service.Received(1).AddOrUpdatePropertyAsync(property, key);
+            await _service.Received(1).AddOrUpdateProductPropertyAsync(property, key);
 
             _urlHelper.Received(1).Link(Arg.Any<string>(), Arg.Any<object>());
 

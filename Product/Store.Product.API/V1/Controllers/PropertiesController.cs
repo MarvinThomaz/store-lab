@@ -29,7 +29,7 @@ namespace Store.Product.API.V1.Controllers
             {
                 var property = mapper.Map(request);
 
-                await _service.AddOrUpdatePropertyAsync(property, key);
+                await _service.AddOrUpdateProductPropertyAsync(property, key);
 
                 var link = _urlHelper.Link(GetPropertiesByProductRouteName, new { key = key });
 

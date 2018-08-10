@@ -26,7 +26,7 @@ namespace Store.Product.Application.Services
             throw new NotImplementedException();
         }
 
-        public async Task AddOrUpdatePropertyAsync(ProductProperty property, string productKey)
+        public async Task AddOrUpdateProductPropertyAsync(ProductProperty property, string productKey)
         {
             var errors = property.ValidateEntity();
 
@@ -100,7 +100,7 @@ namespace Store.Product.Application.Services
             await _repository.CreateProductAsync(product);
         }
 
-        public async Task RemovePropertyAsync(string propertyKey, string productKey)
+        public async Task RemovePropertyFromProductAsync(string propertyKey, string productKey)
         {
             if (propertyKey != null && productKey != null)
             {
