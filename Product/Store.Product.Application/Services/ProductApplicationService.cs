@@ -59,7 +59,7 @@ namespace Store.Product.Application.Services
             {
                 var product = await _repository.GetProductByKeyAsync(productKey);
 
-                product.IsDeleted = true;
+                product.IsEnabled = true;
                 product.ModifiedOn = DateTime.UtcNow;
 
                 await _repository.UpdateProductAsync(product, productKey);

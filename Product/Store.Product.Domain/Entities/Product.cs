@@ -23,7 +23,7 @@ namespace Store.Product.Domain.Entities
         public string Name { get; set; }
 
         [Required]
-        public bool IsDeleted { get; set; }
+        public bool IsEnabled { get; set; }
 
         [Required]
         public Price Price { get; set; }

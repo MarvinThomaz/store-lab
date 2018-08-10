@@ -47,7 +47,7 @@ namespace Store.Product.Tests.Acceptance.Product
 
             Assert.Equal(_product.Code, _savedProduct.Code);
             Assert.Equal(_product.Name, _savedProduct.Name);
-            Assert.Equal(_product.IsDeleted, _savedProduct.IsDeleted);
+            Assert.Equal(_product.IsEnabled, _savedProduct.IsEnabled);
         }
 
         [Then(@"the properties of product is")]
@@ -57,7 +57,7 @@ namespace Store.Product.Tests.Acceptance.Product
 
             Assert.Equal(_product.Code, _savedProduct.Code);
             Assert.Equal(_product.Name, _savedProduct.Name);
-            Assert.Equal(_product.IsDeleted, _savedProduct.IsDeleted);
+            Assert.Equal(_product.IsEnabled, _savedProduct.IsEnabled);
 
             for (int i = 0; i < _product.Properties.Count; i++)
             {

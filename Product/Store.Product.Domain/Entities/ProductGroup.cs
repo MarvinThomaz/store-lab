@@ -20,6 +20,9 @@ namespace Store.Product.Domain.Entities
         public string ProfilePhoto { get; set; }
 
         [Required]
+        public bool IsEnabled { get; set; }
+
+        [Required]
         public List<Product> Products { get; set; }
         public List<Launch> Launches { get; set; }
     }
