@@ -12,7 +12,8 @@ namespace Store.Product.Domain.Repositories
         Task UpdateEnableProductStatusAsync(string productKey, bool isEnabled);
         Task<Entities.Product> GetProductByKeyAsync(string productKey);
         Task<IPagingList<Entities.Product>> GetAllProductsAsync(int page, int recordsPerPage);
-        Task AddOrUpdatePropertyInProductAsync(string productKey, string propertyName, string propertyValue, DateTime modifiedOn);
+        Task AddPropertyInProductAsync(string productKey, ProductProperty property, DateTime modifiedOn);
+        Task UpdatePropertyInProductAsync(string productKey, ProductProperty property, DateTime modifiedOn);
         Task RemovePropertyFromProductAsync(string productKey, string propertyName);
         Task UpdatePriceOfProductAsync(string productKey, Price price, DateTime modifiedOn);
         Task AddLaunchInProductAsync(string productKey, Launch launch, DateTime modifiedOn);

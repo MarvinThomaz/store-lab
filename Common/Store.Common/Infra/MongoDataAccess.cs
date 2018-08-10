@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Store.Common.Extensions;
 using Store.Common.List;
+using Store.Common.Utils;
 
 namespace Store.Common.Infra
 {
@@ -90,6 +92,19 @@ namespace Store.Common.Infra
             var query = $"{{'_id': '{key}'}}";
 
             await collection.ReplaceOneAsync(query, entity);
+        }
+
+        public async Task UpdateAsync<T>(IDictionary<string, object> properties, string key)
+        {
+            var entity = await SelectByKeyAsync<T>(key);
+            var entityProperties = properties.Select(p => GenericTypeUtils<T>.GetProperty(p.Key));
+
+            foreach (var property in entityProperties)
+            {
+                property.SetValue(entity, properties[property.Name]);
+            }
+
+            await UpdateAsync(entity, key);
         }
     }
 }

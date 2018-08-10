@@ -16,19 +16,39 @@ namespace Store.Product.Repositories
             _dataAccess = dataAccess;
         }
 
-        public Task AddLaunchInProduct(string productKey, Launch launch, DateTime modifiedOn)
+        public async Task AddLaunchInProductAsync(string productKey, Launch launch, DateTime modifiedOn)
         {
-            throw new NotImplementedException();
+            var product = await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(productKey);
+
+            product.Launches.Add(launch);
+            product.ModifiedOn = modifiedOn;
+
+            await _dataAccess.UpdateAsync(product, productKey);
         }
 
-        public Task AddLaunchInProductAsync(string productKey, Launch launch, DateTime modifiedOn)
+        public async Task AddPropertyInProductAsync(string productKey, ProductProperty property, DateTime modifiedOn)
         {
-            throw new NotImplementedException();
+            var product = await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(productKey);
+
+            product.Properties.Add(property);
+            product.ModifiedOn = modifiedOn;
+
+            await _dataAccess.UpdateAsync(product, productKey);
         }
 
-        public Task AddOrUpdatePropertyInProductAsync(string productKey, string propertyName, string propertyValue, DateTime modifiedOn)
+        public async Task UpdatePropertyInProductAsync(string productKey, ProductProperty property, DateTime modifiedOn)
         {
-            throw new NotImplementedException();
+            var product = await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(productKey);
+
+            product.Properties.ForEach(p =>
+            {
+                if (p.Name == property.Name)
+                    p = property;
+            });
+
+            product.ModifiedOn = modifiedOn;
+
+            await _dataAccess.UpdateAsync(product, productKey);
         }
 
         public async Task CreateProductAsync(Domain.Entities.Product product)
@@ -43,11 +63,6 @@ namespace Store.Product.Repositories
 
         public async Task<Domain.Entities.Product> GetProductByKeyAsync(string key)
         {
-            if(key == null)
-            {
-                return null;
-            }
-
             return await _dataAccess.SelectByKeyAsync<Domain.Entities.Product>(key);
         }
 
