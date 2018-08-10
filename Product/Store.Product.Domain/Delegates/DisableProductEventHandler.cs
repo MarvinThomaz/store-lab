@@ -1,6 +1,6 @@
-﻿namespace Store.Product.Domain.Delegates
+﻿using Store.Product.Domain.EventArgs;
+
+namespace Store.Product.Domain.Delegates
 {
-    public class DisableProductEventHandler
-    {
-    }
+    public delegate void DisableProductEventHandler(object sender, DisableProductEventArgs args);
 }

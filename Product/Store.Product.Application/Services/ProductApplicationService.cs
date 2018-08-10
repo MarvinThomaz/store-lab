@@ -6,6 +6,7 @@ using Store.Common.Config;
 using Store.Common.Exceptions;
 using Store.Common.Extensions;
 using Store.Common.List;
+using Store.Product.Domain.Delegates;
 using Store.Product.Domain.Entities;
 using Store.Product.Domain.Repositories;
 using Store.Product.Domain.Services;
@@ -20,6 +21,15 @@ namespace Store.Product.Application.Services
         {
             _repository = repository;
         }
+
+        public event AddLaunchToProductEventHandler LaunchAddedToProduct;
+        public event AddOrUpdateProductPropertyEventHandler PropertyAddedOrUpdatedInProduct;
+        public event DisableProductEventHandler ProductDisabled;
+        public event RegisterNewProductEventHandler ProductRegisted;
+        public event RemovePropertyFromProductEventHandler ProductPropertyRemoved;
+        public event UnavailableProductLaunchEventHandler ProductLaunchUnavailable;
+        public event UpdateProductEventHandler ProductUpdated;
+        public event UpdateProductPriceEventHandler ProductPriceUpdated;
 
         public Task AddLaunchToProductAsync(string productKey, Launch launch)
         {
