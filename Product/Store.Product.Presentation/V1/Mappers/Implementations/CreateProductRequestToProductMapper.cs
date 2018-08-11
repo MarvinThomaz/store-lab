@@ -6,7 +6,7 @@ using ProductEntity = Store.Product.Domain.Entities.Product;
 
 namespace Store.Product.API.V1.Mappers
 {
-    public class CreateProductRequestToProductMapper : IMapper<CreateProductRequest, ProductEntity>
+    public class CreateProductRequestToProductMapper : ICreateProductRequestToProductMapper
     {
         private readonly IMapper<CreatePropertyRequest, ProductProperty> _propertyMapper;
 

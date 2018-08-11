@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using Store.Common.Attributes;
 using Store.Common.Entities;
@@ -29,9 +30,9 @@ namespace Store.Product.Domain.Entities
         public Price Price { get; set; }
 
         [Required]
-        public string ProfilePhoto { get; set; }
+        public Uri ProfilePhoto { get; set; }
 
-        public List<string> Photos { get; set; }
+        public List<Uri> Photos { get; set; }
         public List<ProductProperty> Properties { get; set; }
         public List<Launch> Launches { get; set; }
     }

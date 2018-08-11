@@ -76,17 +76,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.User.API", "User\Stor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DDE71F9E-2645-4EFD-9039-A79FAD0AB552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Auth.Tests.Unit", "Auth\Store.Auth.Tests.Unit\Store.Auth.Tests.Unit.csproj", "{FF4EDE75-3735-4EA3-B402-F285E964E03E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Auth.Tests.Unit", "Auth\Store.Auth.Tests.Unit\Store.Auth.Tests.Unit.csproj", "{FF4EDE75-3735-4EA3-B402-F285E964E03E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Gateway.Tests.Unit", "Gateway\Store.Gateway.Tests.Unit\Store.Gateway.Tests.Unit.csproj", "{ECF436F9-C3D4-4508-898B-419DA5B47495}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Gateway.Tests.Unit", "Gateway\Store.Gateway.Tests.Unit\Store.Gateway.Tests.Unit.csproj", "{ECF436F9-C3D4-4508-898B-419DA5B47495}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Payment.Tests.Unit", "Payment\Store.Payment.Tests.Unit\Store.Payment.Tests.Unit.csproj", "{065CEE7A-8D4D-4FD9-858D-C2C3E3B17C5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Payment.Tests.Unit", "Payment\Store.Payment.Tests.Unit\Store.Payment.Tests.Unit.csproj", "{065CEE7A-8D4D-4FD9-858D-C2C3E3B17C5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Permission.Tests.Unit", "Permission\Store.Permission.Tests.Unit\Store.Permission.Tests.Unit.csproj", "{4DE7234E-07F6-489B-8973-5F963D885B24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Permission.Tests.Unit", "Permission\Store.Permission.Tests.Unit\Store.Permission.Tests.Unit.csproj", "{4DE7234E-07F6-489B-8973-5F963D885B24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Sale.Tests.Unit", "Sale\Store.Sale.Tests.Unit\Store.Sale.Tests.Unit.csproj", "{D64F921A-AF52-44C7-998E-243507E837B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Sale.Tests.Unit", "Sale\Store.Sale.Tests.Unit\Store.Sale.Tests.Unit.csproj", "{D64F921A-AF52-44C7-998E-243507E837B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.User.Tests.Unit", "User\Store.User.Tests.Unit\Store.User.Tests.Unit.csproj", "{3DFA13D1-4FB6-405C-8E16-91181529E56C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.User.Tests.Unit", "User\Store.User.Tests.Unit\Store.User.Tests.Unit.csproj", "{3DFA13D1-4FB6-405C-8E16-91181529E56C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Auth.Tests.Acceptance", "Auth\Store.Auth.Tests.Acceptance\Store.Auth.Tests.Acceptance.csproj", "{024E2FCB-E6E7-4344-8C66-F8B3BC097F57}"
 EndProject
@@ -99,6 +99,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Sale.Tests.Acceptance", "Sale\Store.Sale.Tests.Acceptance\Store.Sale.Tests.Acceptance.csproj", "{695A6EFB-33F5-489B-B2B3-7C9D3DEE6664}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.User.Tests.Acceptance", "User\Store.User.Tests.Acceptance\Store.User.Tests.Acceptance.csproj", "{66C4013F-5ADE-4E4F-847D-0611716DB08C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Product.Presentation", "Product\Store.Product.Presentation\Store.Product.Presentation.csproj", "{D23A1138-E1EA-4819-8F19-2852EA9015D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -602,6 +604,18 @@ Global
 		{66C4013F-5ADE-4E4F-847D-0611716DB08C}.Release|x64.Build.0 = Release|Any CPU
 		{66C4013F-5ADE-4E4F-847D-0611716DB08C}.Release|x86.ActiveCfg = Release|Any CPU
 		{66C4013F-5ADE-4E4F-847D-0611716DB08C}.Release|x86.Build.0 = Release|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Debug|x64.Build.0 = Debug|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Debug|x86.Build.0 = Debug|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Release|x64.Build.0 = Release|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Release|x86.ActiveCfg = Release|Any CPU
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -648,6 +662,7 @@ Global
 		{3E448524-084A-4BF8-9FF6-088224F5BDA6} = {B9652C57-A5C8-4295-BFE5-D74C8CE144A5}
 		{695A6EFB-33F5-489B-B2B3-7C9D3DEE6664} = {C48875E8-2669-40DB-8315-BC78B1FCDD93}
 		{66C4013F-5ADE-4E4F-847D-0611716DB08C} = {04877E2A-EB31-4F69-B730-ACE70DE7A63B}
+		{D23A1138-E1EA-4819-8F19-2852EA9015D9} = {AB0CCA9B-BC62-469C-9435-597EBF6E3D80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA747098-6368-4779-BE8D-75D1C7385277}

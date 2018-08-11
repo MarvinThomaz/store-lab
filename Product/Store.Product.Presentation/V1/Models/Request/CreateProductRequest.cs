@@ -14,6 +14,17 @@ namespace Store.Product.API.V1.Models.Request
         [MinLength(2)]
         public string Name { get; set; }
 
+        [Required]
+        public bool IsEnabled { get; set; }
+
+        [Required]
+        public CreatePriceRequest Price { get; set; }
+
+        [Required]
+        public byte[] ProfilePhoto { get; set; }
+
+        public List<byte[]> Photos { get; set; }
         public List<CreatePropertyRequest> Properties { get; set; }
+        public List<CreateLaunchRequest> Launches { get; set; }
     }
 }
