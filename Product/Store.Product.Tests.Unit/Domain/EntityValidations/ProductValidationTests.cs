@@ -16,7 +16,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
                                           .With(p => p.Key, null)
                                           .Build();
 
-            var errors = product.ValidateEntity();
+            var errors = product.Validate();
 
             Assert.True(errors.ContainsType(InfoType.RequiredObject));
             Assert.True(errors.Count == 1);
@@ -29,7 +29,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
                                           .With(p => p.Key, new string('x', 37))
                                           .Build();
 
-            var errors = product.ValidateEntity();
+            var errors = product.Validate();
 
             Assert.True(errors.ContainsType(InfoType.MaxLengthObject));
             Assert.True(errors.Count == 1);
@@ -42,7 +42,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
                                           .With(p => p.Key, new string('x', 35))
                                           .Build();
 
-            var errors = product.ValidateEntity();
+            var errors = product.Validate();
 
             Assert.True(errors.ContainsType(InfoType.MinLengthObject));
             Assert.True(errors.Count == 1);
@@ -56,7 +56,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
                                           .With(p => p.Code, null)
                                           .Build();
 
-            var errors = product.ValidateEntity();
+            var errors = product.Validate();
 
             Assert.True(errors.ContainsType(InfoType.RequiredObject));
             Assert.True(errors.Count == 1);
@@ -70,7 +70,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
                                         .With(p => p.Code, new string('x', 129))
                                         .Build();
 
-            var errors = product.ValidateEntity();
+            var errors = product.Validate();
 
             Assert.True(errors.ContainsType(InfoType.MaxLengthObject));
             Assert.True(errors.Count == 1);
@@ -84,7 +84,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
                                         .With(p => p.Name, null)
                                         .Build();
             
-            var errors = product.ValidateEntity();
+            var errors = product.Validate();
 
             Assert.True(errors.ContainsType(InfoType.RequiredObject));
             Assert.True(errors.Count == 1);
@@ -98,7 +98,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
                                         .With(p => p.Name, new string('x', 51))
                                         .Build();
             
-            var errors = product.ValidateEntity();
+            var errors = product.Validate();
 
             Assert.True(errors.ContainsType(InfoType.MaxLengthObject));
             Assert.True(errors.Count == 1);
@@ -112,7 +112,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
                                         .With(p => p.Name, "x")
                                         .Build();
 
-            var errors = product.ValidateEntity();
+            var errors = product.Validate();
 
             Assert.True(errors.ContainsType(InfoType.MinLengthObject));
             Assert.True(errors.Count == 1);

@@ -1,6 +1,5 @@
-﻿using Store.Common.Config;
-using Store.Common.Contracts;
-using Store.Common.Enums;
+﻿using Store.Common.Attributes;
+using Store.Common.Config;
 using Store.Common.Exceptions;
 using Store.Common.Extensions;
 using Store.Common.List;
@@ -33,18 +32,12 @@ namespace Store.Product.Application.Services
         public event UpdateProductNameEventHandler ProductNameUpdated;
         public event UpdateProductPriceEventHandler ProductPriceUpdated;
 
-        public async Task AddLaunchToProductAsync(string productKey, Launch launch)
+        public async Task AddLaunchToProductAsync([Validate(true, 36, 36)] string productKey, Launch launch)
         {
-            if (productKey == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(productKey));
+            var productValidations = productKey.Validate();
+            var launchValidations = launch.Validate();
 
-                throw new EntityExcpetion(error);
-            }
-
-            var errors = launch.ValidateEntity();
-
-            if (errors.IsValid)
+            if (launchValidations.IsValid && productValidations.IsValid)
             {
                 await _repository.AddLaunchInProductAsync(productKey, launch, DateTime.Now);
 
@@ -57,21 +50,15 @@ namespace Store.Product.Application.Services
                 LaunchAddedToProduct?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(errors);
+                throw new EntityExcpetion(launchValidations.Aggregate(productValidations).ToArray());
         }
 
-        public async Task AddOrUpdateProductPropertyAsync(ProductProperty property, string productKey)
+        public async Task AddOrUpdateProductPropertyAsync(ProductProperty property, [Validate(true, 36, 36)] string productKey)
         {
-            if (productKey == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(productKey));
+            var productValidations = productKey.Validate();
+            var propertyValidations = property.Validate();
 
-                throw new EntityExcpetion(error);
-            }
-
-            var errors = property.ValidateEntity();
-
-            if (errors.IsValid)
+            if (propertyValidations.IsValid && productValidations.IsValid)
             {
                 var product = await _repository.GetProductByKeyAsync(productKey);
                 var savedProperty = product.Properties?.FirstOrDefault(p => p.Name == property.Name);
@@ -94,34 +81,34 @@ namespace Store.Product.Application.Services
                 PropertyAddedOrUpdatedInProduct?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(errors);
+                throw new EntityExcpetion(propertyValidations.Aggregate(productValidations).ToArray());
         }
 
-        public async Task DisableProductAsync(string productKey)
+        public async Task DisableProductAsync([Validate(true, 36, 36)] string productKey)
         {
-            if (productKey == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(productKey));
+            var productValidations = productKey.Validate();
 
-                throw new EntityExcpetion(error);
+            if (productValidations.IsValid)
+            {
+                await _repository.UpdateEnableProductStatusAsync(productKey, false, DateTime.Now);
+
+                var args = new DisableProductEventArgs
+                {
+                    ProductKey = productKey
+                };
+
+                ProductDisabled?.Invoke(this, args);
             }
-
-            await _repository.UpdateEnableProductStatusAsync(productKey, false, DateTime.Now);
-
-            var args = new DisableProductEventArgs
-            {
-                ProductKey = productKey
-            };
-
-            ProductDisabled?.Invoke(this, args);
+            else
+                throw new EntityExcpetion(productValidations);
         }
 
-        public async Task<Domain.Entities.Product> GetProductByKeyAsync(string productKey)
+        public async Task<Domain.Entities.Product> GetProductByKeyAsync([Validate(true, 36, 36)] string productKey)
         {
-            if (productKey == null)
-            {
+            var productValidations = productKey.Validate();
+
+            if (!productValidations.IsValid)
                 return null;
-            }
 
             return await _repository.GetProductByKeyAsync(productKey);
         }
@@ -135,11 +122,11 @@ namespace Store.Product.Application.Services
         {
             product.Key = KeyGenerator.New();
 
-            var errors = product.ValidateEntity();
+            var productValidations = product.Validate();
 
-            if (!errors.IsValid)
+            if (!productValidations.IsValid)
             {
-                throw new EntityExcpetion(errors);
+                throw new EntityExcpetion(productValidations);
             }
 
             await _repository.CreateProductAsync(product);
@@ -152,99 +139,75 @@ namespace Store.Product.Application.Services
             ProductRegisted?.Invoke(this, args);
         }
 
-        public async Task RemovePropertyFromProductAsync(string propertyName, string productKey)
+        public async Task RemovePropertyFromProductAsync([Validate(true, 50, 2)] string propertyName, [Validate(true, 36, 36)] string productKey)
         {
-            if (productKey == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(productKey));
+            var productValidations = productKey.Validate();
+            var propertyValidations = propertyName.Validate();
 
-                throw new EntityExcpetion(error);
+            if (productValidations.IsValid && propertyValidations.IsValid)
+            {
+                await _repository.RemovePropertyFromProductAsync(productKey, propertyName, DateTime.Now);
+
+                var args = new RemovePropertyFromProductEventArgs
+                {
+                    ProductKey = productKey,
+                    PropertyName = propertyName
+                };
+
+                ProductPropertyRemoved?.Invoke(this, args);
             }
-
-            if (propertyName == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(propertyName));
-
-                throw new EntityExcpetion(error);
-            }
-
-            await _repository.RemovePropertyFromProductAsync(productKey, propertyName, DateTime.Now);
-
-            var args = new RemovePropertyFromProductEventArgs
-            {
-                ProductKey = productKey,
-                PropertyName = propertyName
-            };
-
-            ProductPropertyRemoved?.Invoke(this, args);
+            else
+                throw new EntityExcpetion(productValidations.Aggregate(propertyValidations).ToArray());
         }
 
-        public async Task UnavailableProductLaunchAsync(string productKey, string launchKey)
+        public async Task UnavailableProductLaunchAsync([Validate(true, 36, 36)] string productKey, [Validate(true, 36, 36)] string launchKey)
         {
-            if (productKey == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(productKey));
+            var productValidations = productKey.Validate();
+            var launchValidations = launchKey.Validate();
 
-                throw new EntityExcpetion(error);
+            if (productValidations.IsValid && launchValidations.IsValid)
+            {
+                await _repository.UpdateLaunchAvailableStatusInProductAsync(productKey, launchKey, false, DateTime.Now);
+
+                var args = new UnavailableProductLaunchEventArgs
+                {
+                    LaunchKey = launchKey,
+                    ProductKey = productKey
+                };
+
+                ProductLaunchUnavailable?.Invoke(this, args);
             }
-
-            if (launchKey == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(launchKey));
-
-                throw new EntityExcpetion(error);
-            }
-
-            await _repository.UpdateLaunchAvailableStatusInProductAsync(productKey, launchKey, false, DateTime.Now);
-
-            var args = new UnavailableProductLaunchEventArgs
-            {
-                LaunchKey = launchKey,
-                ProductKey = productKey
-            };
-
-            ProductLaunchUnavailable?.Invoke(this, args);
+            else
+                throw new EntityExcpetion(launchValidations.Aggregate(productValidations).ToArray());
         }
 
-        public async Task UpdateProductNameAsync(string name, string productKey)
+        public async Task UpdateProductNameAsync([Validate(true, 50, 2)] string name, [Validate(true, 36, 36)] string productKey)
         {
-            if (productKey == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(productKey));
+            var productValidations = productKey.Validate();
+            var nameValidations = name.Validate();
 
-                throw new EntityExcpetion(error);
+            if (productValidations.IsValid && nameValidations.IsValid)
+            {
+                await _repository.UpdateProductNameAsync(productKey, name, DateTime.Now);
+
+                var args = new UpdateProductNameEventArgs
+                {
+                    Name = name,
+                    ProductKey = productKey
+                };
+
+                ProductNameUpdated?.Invoke(this, args);
             }
-
-            if (name == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(name));
-
-                throw new EntityExcpetion(error);
-            }
-
-            await _repository.UpdateProductNameAsync(productKey, name, DateTime.Now);
-
-            var args = new UpdateProductNameEventArgs
-            {
-                Name = name,
-                ProductKey = productKey
-            };
-
-            ProductNameUpdated?.Invoke(this, args);
+            else
+                throw new EntityExcpetion(productValidations.Aggregate(nameValidations).ToArray());
         }
 
-        public async Task UpdateProductPriceAsync(string productKey, Price price)
+        public async Task UpdateProductPriceAsync([Validate(true, 36, 36)] string productKey, Price price)
         {
-            if (productKey == null)
-            {
-                var error = new Info(InfoType.NullableProperty, nameof(productKey));
+            var productValidations = productKey.Validate();
+            var priceValidations = price.Validate();
 
-                throw new EntityExcpetion(error);
-            }
-
-            var errors = price.ValidateEntity();
-
-            if (errors.IsValid)
+            if (priceValidations.IsValid && productValidations.IsValid)
             {
                 await _repository.UpdatePriceOfProductAsync(productKey, price, DateTime.Now);
 
@@ -256,6 +219,8 @@ namespace Store.Product.Application.Services
 
                 ProductPriceUpdated?.Invoke(this, args);
             }
+            else
+                throw new EntityExcpetion(productValidations.Aggregate(priceValidations).ToArray());
         }
     }
 }

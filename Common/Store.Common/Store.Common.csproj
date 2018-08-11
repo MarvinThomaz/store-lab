@@ -7,7 +7,6 @@
     <Folder Include="List\" />
     <Folder Include="Infra\" />
     <Folder Include="Contracts\" />
-    <Folder Include="Attributes\" />
     <Folder Include="Config\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Enums\" />

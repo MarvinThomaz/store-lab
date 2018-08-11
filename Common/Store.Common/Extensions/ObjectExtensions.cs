@@ -30,7 +30,7 @@ namespace Store.Common.Extensions
             }
         }
 
-        public static Errors ValidateEntity(this object entity)
+        public static Errors Validate(this object entity)
         {
             var type = entity.GetType();
             var properties = type.GetProperties();
@@ -57,7 +57,7 @@ namespace Store.Common.Extensions
 
                 foreach (var item in list)
                 {
-                    var itemErrors = ValidateEntity(item);
+                    var itemErrors = Validate(item);
 
                     errors.AddRange(itemErrors);
                 }
