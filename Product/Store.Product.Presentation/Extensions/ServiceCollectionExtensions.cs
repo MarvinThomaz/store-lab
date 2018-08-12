@@ -6,7 +6,7 @@ namespace Store.Product.Presentation.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddMapper(this IServiceCollection services)
+        public static void AddPresentation(this IServiceCollection services)
         {
             services.AddSingleton<ICreateProductRequestToProductMapper, CreateProductRequestToProductMapper>();
             services.AddSingleton<ILaunchEnumToLaunchTypesMapper, LaunchEnumToLaunchTypesMapper>();
