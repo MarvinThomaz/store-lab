@@ -1,12 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Store.Common.Entities;
-using Store.Common.Infra;
-using Store.Product.API.V1.Models.Request;
-using Store.Product.API.V1.Models.Response;
 using Store.Product.Domain.Services;
-using ProductEntity = Store.Product.Domain.Entities.Product;
+using Store.Product.Presentation.V1.Mappers.Interfaces;
+using Store.Product.Presentation.V1.Models.Request;
+using System.Threading.Tasks;
 
 namespace Store.Product.API.V1.Controllers
 {
@@ -25,7 +22,7 @@ namespace Store.Product.API.V1.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductRequest request, [FromServices] IMapper<CreateProductRequest, ProductEntity> mapper)
+        public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductRequest request, [FromServices] ICreateProductRequestToProductMapper mapper)
         {
             if(ModelState.IsValid)
             {
@@ -66,7 +63,7 @@ namespace Store.Product.API.V1.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsAsync([FromQuery] PagingParameters parameters, [FromServices] IMapper<IEnumerable<Domain.Entities.Product>, IEnumerable<ListProductResponse>> mapper)
+        public async Task<IActionResult> GetProductsAsync([FromQuery] PagingParameters parameters, [FromServices] IProductToListProductResponseMapper mapper)
         {
             var list = await _service.GetProductsAsync(parameters.Page, parameters.RercordsPerPage);
             var result = mapper.Map(list);

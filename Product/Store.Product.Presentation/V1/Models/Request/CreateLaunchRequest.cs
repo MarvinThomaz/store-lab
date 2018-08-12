@@ -1,7 +1,7 @@
 ﻿using Store.Product.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Store.Product.API.V1.Models.Request
+namespace Store.Product.Presentation.V1.Models.Request
 {
     public class CreateLaunchRequest
     {

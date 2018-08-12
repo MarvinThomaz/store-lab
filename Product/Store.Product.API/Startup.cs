@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Store.Common.Extensions;
 using Store.Product.API.Config;
+using Store.Product.Presentation.Extensions;
 
 namespace Store.Product.API
 {

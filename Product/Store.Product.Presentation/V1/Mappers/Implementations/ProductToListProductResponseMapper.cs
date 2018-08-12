@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Store.Product.Presentation.V1.Mappers.Interfaces;
+using Store.Product.Presentation.V1.Models.Response;
+using System.Collections.Generic;
 using System.Linq;
-using Store.Common.Infra;
-using Store.Product.API.V1.Models.Response;
 
-namespace Store.Product.API.V1.Mappers
+namespace Store.Product.Presentation.V1.Mappers.Implementations
 {
-    public class ProductToListProductResponseMapper : IMapper<IEnumerable<Domain.Entities.Product>, IEnumerable<ListProductResponse>>
+    public class ProductToListProductResponseMapper : IProductToListProductResponseMapper
     {
         public IEnumerable<ListProductResponse> Map(IEnumerable<Domain.Entities.Product> source)
         {

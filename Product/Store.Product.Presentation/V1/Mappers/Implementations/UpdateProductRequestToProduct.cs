@@ -1,11 +1,9 @@
-﻿using System;
-using Store.Common.Infra;
-using Store.Product.API.V1.Models.Request;
-using Store.Product.Domain.Entities;
+﻿using Store.Product.Presentation.V1.Mappers.Interfaces;
+using Store.Product.Presentation.V1.Models.Request;
 
-namespace Store.Product.API.V1.Mappers
+namespace Store.Product.Presentation.V1.Mappers.Implementations
 {
-    public class UpdateProductRequestToProduct : IMapper<UpdateProductRequest, Domain.Entities.Product>
+    public class UpdateProductRequestToProduct : IUpdateProductRequestToProduct
     {
         public Domain.Entities.Product Map(UpdateProductRequest source)
         {

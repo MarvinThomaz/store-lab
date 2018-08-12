@@ -1,14 +1,12 @@
-﻿using Store.Common.Infra;
-using Store.Product.API.V1.Models.Response;
-using Store.Product.Domain.Enums;
+﻿using Store.Product.Domain.Enums;
+using Store.Product.Presentation.V1.Mappers.Interfaces;
+using Store.Product.Presentation.V1.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Store.Product.API.V1.Mappers
+namespace Store.Product.Presentation.V1.Mappers.Implementations
 {
-    public class LaunchEnumToLaunchTypesMapper : IMapper<LaunchEnum, IEnumerable<LaunchTypesResponse>>
+    public class LaunchEnumToLaunchTypesMapper : ILaunchEnumToLaunchTypesMapper
     {
         public IEnumerable<LaunchTypesResponse> Map(LaunchEnum source)
         {

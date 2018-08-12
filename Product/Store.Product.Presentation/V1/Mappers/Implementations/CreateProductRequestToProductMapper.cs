@@ -1,10 +1,11 @@
-using System.Linq;
 using Store.Common.Infra;
-using Store.Product.API.V1.Models.Request;
 using Store.Product.Domain.Entities;
+using Store.Product.Presentation.V1.Mappers.Interfaces;
+using Store.Product.Presentation.V1.Models.Request;
+using System.Linq;
 using ProductEntity = Store.Product.Domain.Entities.Product;
 
-namespace Store.Product.API.V1.Mappers
+namespace Store.Product.Presentation.V1.Mappers.Implementations
 {
     public class CreateProductRequestToProductMapper : ICreateProductRequestToProductMapper
     {

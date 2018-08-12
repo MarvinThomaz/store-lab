@@ -1,10 +1,8 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Store.Common.Infra;
-using Store.Product.API.V1.Mappers;
-using Store.Product.API.V1.Models.Request;
-using Store.Product.Domain.Entities;
 using Store.Product.Domain.Services;
+using Store.Product.Presentation.V1.Mappers.Interfaces;
+using Store.Product.Presentation.V1.Models.Request;
+using System.Threading.Tasks;
 
 namespace Store.Product.API.V1.Controllers
 {
@@ -23,7 +21,7 @@ namespace Store.Product.API.V1.Controllers
 
         [HttpPost]
         [HttpPut]
-        public async Task<IActionResult> AddOrUpdatePropertyAsync(string key, [FromBody] CreatePropertyRequest request, [FromServices] IMapper<CreatePropertyRequest, ProductProperty> mapper)
+        public async Task<IActionResult> AddOrUpdatePropertyAsync(string key, [FromBody] CreatePropertyRequest request, [FromServices] ICreatePropertyRequestToPropertyMapper mapper)
         {
             if(ModelState.IsValid)
             {

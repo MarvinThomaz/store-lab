@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Store.Common.Infra;
-using Store.Product.API.V1.Models.Response;
 using Store.Product.Domain.Enums;
-using System.Collections.Generic;
+using Store.Product.Presentation.V1.Mappers.Interfaces;
 
 namespace Store.Product.API.V1.Controllers
 {
@@ -11,7 +9,7 @@ namespace Store.Product.API.V1.Controllers
     {
         [HttpGet]
         [Route("types")]
-        public IActionResult GetLaunchTypes([FromServices] IMapper<LaunchEnum, IEnumerable<LaunchTypesResponse>> mapper)
+        public IActionResult GetLaunchTypes([FromServices] ILaunchEnumToLaunchTypesMapper mapper)
         {
             return Ok(mapper.Map(LaunchEnum.Addition));
         }

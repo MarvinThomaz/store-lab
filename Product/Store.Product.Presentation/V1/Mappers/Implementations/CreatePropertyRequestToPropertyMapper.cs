@@ -1,10 +1,10 @@
-using Store.Common.Infra;
-using Store.Product.API.V1.Models.Request;
 using Store.Product.Domain.Entities;
+using Store.Product.Presentation.V1.Mappers.Interfaces;
+using Store.Product.Presentation.V1.Models.Request;
 
-namespace Store.Product.API.V1.Mappers
+namespace Store.Product.Presentation.V1.Mappers.Implementations
 {
-    public class CreatePropertyRequestToPropertyMapper : IMapper<CreatePropertyRequest, ProductProperty>
+    public class CreatePropertyRequestToPropertyMapper : ICreatePropertyRequestToPropertyMapper
     {
         public ProductProperty Map(CreatePropertyRequest source)
         {

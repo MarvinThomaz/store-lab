@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Store.Product.API.V1.Models.Response
+﻿namespace Store.Product.Presentation.V1.Models.Response
 {
     public class LaunchTypesResponse
     {
