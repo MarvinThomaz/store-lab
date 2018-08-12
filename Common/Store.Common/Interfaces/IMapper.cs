@@ -1,4 +1,4 @@
-namespace Store.Common.Infra
+namespace Store.Common.Interfaces
 {
     public interface IMapper<TSource, TDestination>
     {

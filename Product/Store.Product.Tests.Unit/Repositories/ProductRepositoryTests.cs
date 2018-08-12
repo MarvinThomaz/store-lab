@@ -27,7 +27,7 @@ namespace Store.Product.Tests.Unit.Repositories
         public async Task GetProductByKey()
         {
             var repository = new ProductRepository(_dataAccess);
-            var key = KeyGenerator.New();
+            var key = KeyBuilder.Build();
             var product = Builder<ProductEntity>.CreateNew().Build();
 
             _dataAccess.SelectByKeyAsync<ProductEntity>(key).Returns(product);
@@ -41,7 +41,7 @@ namespace Store.Product.Tests.Unit.Repositories
         public async Task NonExistantProductOnGetByKey()
         {
             var repository = new ProductRepository(_dataAccess);
-            var key = KeyGenerator.New();
+            var key = KeyBuilder.Build();
             var persistedProduct = await repository.GetProductByKeyAsync(key);
 
             Assert.Null(persistedProduct);

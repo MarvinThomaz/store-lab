@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Store.Common.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Store.Common.List;
 
-namespace Store.Common.Infra
+namespace Store.Common.Intefaces
 {
     public interface IDataAccess
     {

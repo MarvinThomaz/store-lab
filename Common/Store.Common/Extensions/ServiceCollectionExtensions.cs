@@ -1,7 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using Store.Common.Infra;
+using Store.Common.Intefaces;
+using Store.Common.Mongo;
 
 namespace Store.Common.Extensions
 {
@@ -14,7 +15,7 @@ namespace Store.Common.Extensions
 
         public static void AddMongo(this IServiceCollection services, string database)
         {
-            services.AddScoped<IMongoDatabase>(svcProvider =>
+            services.AddScoped(svcProvider =>
             {
                 var configuration = svcProvider.GetService(typeof(IConfiguration)) as IConfiguration;
                 var connStr = configuration.GetConnectionString("Mongo");

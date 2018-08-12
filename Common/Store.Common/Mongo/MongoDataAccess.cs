@@ -1,14 +1,15 @@
+using MongoDB.Driver;
+using Store.Common.Extensions;
+using Store.Common.Intefaces;
+using Store.Common.Interfaces;
+using Store.Common.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using MongoDB.Driver;
-using Store.Common.Extensions;
-using Store.Common.List;
-using Store.Common.Utils;
 
-namespace Store.Common.Infra
+namespace Store.Common.Mongo
 {
     public class MongoDataAccess : IDataAccess
     {

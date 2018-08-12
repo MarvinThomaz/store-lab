@@ -50,7 +50,7 @@ namespace Store.Product.Application.Services
                 LaunchAddedToProduct?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(launchValidations.Aggregate(productValidations).ToArray());
+                throw new EntityException(launchValidations.Aggregate(productValidations).ToArray());
         }
 
         public async Task AddOrUpdateProductPropertyAsync(ProductProperty property, [Validate(true, 36, 36)] string productKey)
@@ -81,7 +81,7 @@ namespace Store.Product.Application.Services
                 PropertyAddedOrUpdatedInProduct?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(propertyValidations.Aggregate(productValidations).ToArray());
+                throw new EntityException(propertyValidations.Aggregate(productValidations).ToArray());
         }
 
         public async Task DisableProductAsync([Validate(true, 36, 36)] string productKey)
@@ -100,7 +100,7 @@ namespace Store.Product.Application.Services
                 ProductDisabled?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(productValidations);
+                throw new EntityException(productValidations);
         }
 
         public async Task<Domain.Entities.Product> GetProductByKeyAsync([Validate(true, 36, 36)] string productKey)
@@ -120,13 +120,13 @@ namespace Store.Product.Application.Services
 
         public async Task RegisterNewProductAsync(Domain.Entities.Product product)
         {
-            product.Key = KeyGenerator.New();
+            product.Key = KeyBuilder.Build();
 
             var productValidations = product.Validate();
 
             if (!productValidations.IsValid)
             {
-                throw new EntityExcpetion(productValidations);
+                throw new EntityException(productValidations);
             }
 
             await _repository.CreateProductAsync(product);
@@ -157,7 +157,7 @@ namespace Store.Product.Application.Services
                 ProductPropertyRemoved?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(productValidations.Aggregate(propertyValidations).ToArray());
+                throw new EntityException(productValidations.Aggregate(propertyValidations).ToArray());
         }
 
         public async Task UnavailableProductLaunchAsync([Validate(true, 36, 36)] string productKey, [Validate(true, 36, 36)] string launchKey)
@@ -178,7 +178,7 @@ namespace Store.Product.Application.Services
                 ProductLaunchUnavailable?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(launchValidations.Aggregate(productValidations).ToArray());
+                throw new EntityException(launchValidations.Aggregate(productValidations).ToArray());
         }
 
         public async Task UpdateProductNameAsync([Validate(true, 50, 2)] string name, [Validate(true, 36, 36)] string productKey)
@@ -199,7 +199,7 @@ namespace Store.Product.Application.Services
                 ProductNameUpdated?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(productValidations.Aggregate(nameValidations).ToArray());
+                throw new EntityException(productValidations.Aggregate(nameValidations).ToArray());
         }
 
         public async Task UpdateProductPriceAsync([Validate(true, 36, 36)] string productKey, Price price)
@@ -220,7 +220,7 @@ namespace Store.Product.Application.Services
                 ProductPriceUpdated?.Invoke(this, args);
             }
             else
-                throw new EntityExcpetion(productValidations.Aggregate(priceValidations).ToArray());
+                throw new EntityException(productValidations.Aggregate(priceValidations).ToArray());
         }
     }
 }

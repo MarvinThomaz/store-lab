@@ -1,4 +1,4 @@
-﻿using Store.Common.Contracts;
+﻿using Store.Common.Entities;
 using Store.Common.Enums;
 using Store.Common.Extensions;
 using System;

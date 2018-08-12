@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Store.Common.Attributes;
+using Store.Common.Entities;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using Store.Common.Attributes;
-using Store.Common.Contracts;
 
 namespace Store.Common.Extensions
 {

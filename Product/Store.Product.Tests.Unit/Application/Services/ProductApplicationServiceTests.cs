@@ -21,7 +21,7 @@ namespace Store.Product.Tests.Unit.Application.Services
             var service = new ProductApplicationService(_repository);
             var properties = Builder<ProductProperty>.CreateListOfSize(2).Build();
             var product = Builder<ProductEntity>.CreateNew()
-                                        .With(p => p.Key, KeyGenerator.New())
+                                        .With(p => p.Key, KeyBuilder.Build())
                                         .With(p => p.Properties, properties).Build();
 
             await service.RegisterNewProductAsync(product);
@@ -33,7 +33,7 @@ namespace Store.Product.Tests.Unit.Application.Services
         public async Task CreateProduct()
         {
             var service = new ProductApplicationService(_repository);
-            var product = Builder<ProductEntity>.CreateNew().With(p => p.Key, KeyGenerator.New()).Build();
+            var product = Builder<ProductEntity>.CreateNew().With(p => p.Key, KeyBuilder.Build()).Build();
 
             await service.RegisterNewProductAsync(product);
 
@@ -44,7 +44,7 @@ namespace Store.Product.Tests.Unit.Application.Services
         public async Task GetProductByKey()
         {
             var service = new ProductApplicationService(_repository);
-            var key = KeyGenerator.New();
+            var key = KeyBuilder.Build();
             var product = Builder<ProductEntity>.CreateNew().Build();
 
             _repository.GetProductByKeyAsync(key).Returns(product);
@@ -58,7 +58,7 @@ namespace Store.Product.Tests.Unit.Application.Services
         public async Task NonExistantProductOnGetByKey()
         {
             var service = new ProductApplicationService(_repository);
-            var key = KeyGenerator.New();
+            var key = KeyBuilder.Build();
             var persistedProduct = await service.GetProductByKeyAsync(key);
 
             Assert.Null(persistedProduct);

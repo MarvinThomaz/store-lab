@@ -1,8 +1,7 @@
-﻿using System;
-using Store.Common.Enums;
+﻿using Store.Common.Enums;
 using Store.Common.Utils;
 
-namespace Store.Common.Contracts
+namespace Store.Common.Entities
 {
     public class Info
     {

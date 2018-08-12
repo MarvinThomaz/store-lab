@@ -4,6 +4,9 @@ namespace Store.Common.Enums
 {
     public enum InfoType
     {
+        [EnumDescription("An undefined validation error ocurred.")]
+        Undefined = 422000,
+
         [EnumDescription("Required property value.")]
         RequiredObject = 4220001,
 

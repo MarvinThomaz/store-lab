@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Store.Common.Contracts
+namespace Store.Common.Entities
 {
     public class BaseResponse<T>
     {

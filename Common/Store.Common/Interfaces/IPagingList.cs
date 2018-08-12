@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Store.Common.List
+namespace Store.Common.Interfaces
 {
     public interface IPagingList<T> : IReadOnlyList<T>
     {

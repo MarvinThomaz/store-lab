@@ -52,7 +52,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         public void ValidateCodeProduct()
         {
             var product = Builder<ProductEntity>.CreateNew()
-                                          .With(p => p.Key, KeyGenerator.New())
+                                          .With(p => p.Key, KeyBuilder.Build())
                                           .With(p => p.Code, null)
                                           .Build();
 
@@ -66,7 +66,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         public void ValidateCodeProductMaxLength()
         {
             var product = Builder<ProductEntity>.CreateNew()
-                                        .With(p => p.Key, KeyGenerator.New())
+                                        .With(p => p.Key, KeyBuilder.Build())
                                         .With(p => p.Code, new string('x', 129))
                                         .Build();
 
@@ -80,7 +80,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         public void ValidateNameOfProduct()
         {
             var product = Builder<ProductEntity>.CreateNew()
-                                        .With(p => p.Key, KeyGenerator.New())
+                                        .With(p => p.Key, KeyBuilder.Build())
                                         .With(p => p.Name, null)
                                         .Build();
             
@@ -94,7 +94,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         public void ValidateNameProductMaxLength()
         {
             var product = Builder<ProductEntity>.CreateNew()
-                                        .With(p => p.Key, KeyGenerator.New())
+                                        .With(p => p.Key, KeyBuilder.Build())
                                         .With(p => p.Name, new string('x', 51))
                                         .Build();
             
@@ -108,7 +108,7 @@ namespace Store.Product.Tests.Unit.Domain.EntityValidations
         public void ValidateNameProductMinLength()
         {
             var product = Builder<ProductEntity>.CreateNew()
-                                        .With(p => p.Key, KeyGenerator.New())
+                                        .With(p => p.Key, KeyBuilder.Build())
                                         .With(p => p.Name, "x")
                                         .Build();
 

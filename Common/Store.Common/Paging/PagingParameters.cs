@@ -1,4 +1,4 @@
-﻿namespace Store.Common.Entities
+﻿namespace Store.Common.Paging
 {
     public class PagingParameters
     {

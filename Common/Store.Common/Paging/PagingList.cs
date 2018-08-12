@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Store.Common.Interfaces;
+using System.Collections.Generic;
 
-namespace Store.Common.List
+namespace Store.Common.Paging
 {
     public class PagingList<T> : List<T>, IPagingList<T>
     {
