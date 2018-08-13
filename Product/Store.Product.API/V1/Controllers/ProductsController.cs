@@ -39,7 +39,7 @@ namespace Store.Product.API.V1.Controllers
 
         [HttpDelete]
         [Route("{key}")]
-        public async Task<IActionResult> DisableProduct(string key)
+        public async Task<IActionResult> DisableProductAsync(string key)
         {
             await _service.DisableProductAsync(key);
 
