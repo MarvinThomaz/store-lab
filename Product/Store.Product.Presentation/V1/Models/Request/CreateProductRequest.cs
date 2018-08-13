@@ -15,9 +15,6 @@ namespace Store.Product.Presentation.V1.Models.Request
         public string Name { get; set; }
 
         [Required]
-        public bool IsEnabled { get; set; }
-
-        [Required]
         public CreatePriceRequest Price { get; set; }
 
         [Required]

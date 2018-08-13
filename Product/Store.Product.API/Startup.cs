@@ -28,6 +28,7 @@ namespace Store.Product.API
             services.AddRepository();
             services.AddMongo("Product");
             services.AddCommon();
+            services.AddSwaggerGen(options => options.IncludeXmlComments("", true));
             services.AddMvc();
 
             return services.BuildServiceProvider();
@@ -40,6 +41,8 @@ namespace Store.Product.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseException();
             app.UseMvc();
         }

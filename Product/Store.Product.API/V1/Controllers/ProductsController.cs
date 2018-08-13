@@ -22,6 +22,15 @@ namespace Store.Product.API.V1.Controllers
             _urlHelper = urlHelper;
         }
 
+        /// <summary>
+        /// Create product.
+        /// </summary>
+        /// <remarks>
+        /// Creates a new product and insert in catalog of service.
+        /// </remarks>
+        /// <param name="request">Parameters to create a product.</param>
+        /// <param name="mapper">Mapper of product request to product entity.</param>
+        /// <returns>Status of operation</returns>
         [HttpPost]
         public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductRequest request, [FromServices] ICreateProductRequestToProductMapper mapper)
         {
