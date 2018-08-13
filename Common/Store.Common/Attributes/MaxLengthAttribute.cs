@@ -7,14 +7,12 @@ using System.Reflection;
 namespace Store.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class MaxLengthAttribute : Attribute
+    public class MaxLengthAttribute : System.ComponentModel.DataAnnotations.MaxLengthAttribute
     {
-        public MaxLengthAttribute(int length)
+        public MaxLengthAttribute(int length) : base(length)
         {
-            Length = length;
+            ErrorMessage = InfoType.MaxLengthObject.ToString();
         }
-
-        public int Length { get; set; }
 
         public static void Validate(PropertyInfo property, object value, Errors errors)
         {

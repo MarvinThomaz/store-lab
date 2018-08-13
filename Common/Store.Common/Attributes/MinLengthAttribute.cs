@@ -7,15 +7,13 @@ using System.Reflection;
 namespace Store.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class MinLengthAttribute : Attribute
+    public class MinLengthAttribute : System.ComponentModel.DataAnnotations.MinLengthAttribute
     {
-        public MinLengthAttribute(int length)
+        public MinLengthAttribute(int length) : base(length)
         {
-            Length = length;
+            ErrorMessage = InfoType.MinLengthObject.ToString();
         }
-
-        public int Length { get; set; }
-
+        
         public static void Validate(PropertyInfo property, object value, Errors errors)
         {
             var minLength = property.GetCustomAttribute<MinLengthAttribute>();

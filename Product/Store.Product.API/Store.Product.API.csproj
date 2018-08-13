@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <TieredCompilation>true</TieredCompilation>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.1\Store.Product.API.xml</DocumentationFile>
+  </PropertyGroup>
   
   <ItemGroup>
     <Folder Include="wwwroot\" />

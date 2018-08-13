@@ -7,8 +7,13 @@ using System.Reflection;
 namespace Store.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class RequiredAttribute : Attribute
+    public class RequiredAttribute : System.ComponentModel.DataAnnotations.RequiredAttribute
     {
+        public RequiredAttribute()
+        {
+            ErrorMessage = InfoType.RequiredObject.ToString();
+        }
+
         public static void Validate(PropertyInfo property, object value, Errors errors)
         {
             var required = property.GetCustomAttribute<RequiredAttribute>();
