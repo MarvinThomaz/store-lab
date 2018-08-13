@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Store.Product.API.Config
+namespace Store.Product.API.Extensions
 {
-    public static class APIIoc
+    public static class ServiceCollectionExtensions
     {
         public static void AddAPI(this IServiceCollection services)
         {

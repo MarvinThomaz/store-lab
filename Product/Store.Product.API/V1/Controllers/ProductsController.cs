@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Store.Common.Entities;
+using Store.Common.Extensions;
+using Store.Common.Paging;
 using Store.Product.Domain.Services;
 using Store.Product.Presentation.V1.Mappers.Interfaces;
 using Store.Product.Presentation.V1.Models.Request;
@@ -24,17 +25,16 @@ namespace Store.Product.API.V1.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductRequest request, [FromServices] ICreateProductRequestToProductMapper mapper)
         {
-            if(ModelState.IsValid)
-            {
-                var product = mapper.Map(request);
+            ModelState.Validate();
 
-                await _service.RegisterNewProductAsync(product);
-                
-                var urlParameters = new { controller = "products", key = product.Key };
-                var link = _urlHelper.Link(GetProductRouteName, urlParameters);
+            var product = mapper.Map(request);
 
-                return Created(link, link);
-            }
+            await _service.RegisterNewProductAsync(product);
+
+            var urlParameters = new { controller = "products", key = product.Key };
+            var link = _urlHelper.Link(GetProductRouteName, urlParameters);
+
+            return Created(link, link);
 
             return BadRequest();
         }
@@ -54,7 +54,7 @@ namespace Store.Product.API.V1.Controllers
         {
             var product = await _service.GetProductByKeyAsync(key);
 
-            if(product == null)
+            if (product == null)
             {
                 return NotFound();
             }

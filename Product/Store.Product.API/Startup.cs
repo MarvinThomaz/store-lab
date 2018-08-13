@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Store.Common.Extensions;
-using Store.Product.API.Config;
+using Store.Product.API.Extensions;
+using Store.Product.Application.Extensions;
 using Store.Product.Presentation.Extensions;
+using Store.Product.Repository.Extensions;
 using System;
 
 namespace Store.Product.API
@@ -21,10 +23,11 @@ namespace Store.Product.API
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddAPI();
-            services.AddDomain();
             services.AddPresentation();
-            services.AddCommon();
+            services.AddApplication();
+            services.AddRepository();
             services.AddMongo("Product");
+            services.AddCommon();
             services.AddMvc();
 
             return services.BuildServiceProvider();
@@ -37,6 +40,7 @@ namespace Store.Product.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseException();
             app.UseMvc();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Store.Common.Entities;
 using Store.Common.Exceptions;
 using System;
 using System.Threading.Tasks;
@@ -23,9 +24,15 @@ namespace Store.Product.API.Middlewares
             }
             catch (EntityException exception)
             {
+                await FormatException(context, exception.Errors, StatusCodes.Status422UnprocessableEntity);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
+                var errors = new Errors();
+
+                errors.AddError(Common.Enums.InfoType.InternalError, "");
+
+                await FormatException(context, errors, StatusCodes.Status500InternalServerError);
             }
         }
 

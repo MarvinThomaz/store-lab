@@ -1,4 +1,4 @@
-﻿using Store.Common.Infra;
+﻿using Store.Common.Interfaces;
 using Store.Product.Presentation.V1.Models.Response;
 using System.Collections.Generic;
 

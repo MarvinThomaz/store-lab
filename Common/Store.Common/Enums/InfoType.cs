@@ -21,5 +21,8 @@ namespace Store.Common.Enums
 
         [EnumDescription("Property value cannot be null.")]
         NullableProperty = 422005,
+
+        [EnumDescription("An internal server error ocurred.")]
+        InternalError = 500000,
     }
 }
