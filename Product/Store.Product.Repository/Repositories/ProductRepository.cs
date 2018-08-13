@@ -1,5 +1,5 @@
-﻿using Store.Common.Infra;
-using Store.Common.List;
+﻿using Store.Common.Intefaces;
+using Store.Common.Interfaces;
 using Store.Product.Domain.Entities;
 using Store.Product.Domain.Repositories;
 using System;

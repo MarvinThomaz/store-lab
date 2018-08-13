@@ -1,8 +1,8 @@
 ﻿using Store.Common.Attributes;
-using Store.Common.Config;
+using Store.Common.Builders;
 using Store.Common.Exceptions;
 using Store.Common.Extensions;
-using Store.Common.List;
+using Store.Common.Interfaces;
 using Store.Product.Domain.Delegates;
 using Store.Product.Domain.Entities;
 using Store.Product.Domain.EventArgs;

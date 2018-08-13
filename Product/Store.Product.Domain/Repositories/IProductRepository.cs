@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Store.Common.List;
+﻿using Store.Common.Interfaces;
 using Store.Product.Domain.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace Store.Product.Domain.Repositories
 {

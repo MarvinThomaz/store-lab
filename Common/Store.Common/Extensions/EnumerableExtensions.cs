@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Store.Common.Interfaces;
+using Store.Common.Paging;
 using System.Collections.Generic;
 using System.Linq;
-using Store.Common.List;
 
 namespace Store.Common.Extensions
 {
