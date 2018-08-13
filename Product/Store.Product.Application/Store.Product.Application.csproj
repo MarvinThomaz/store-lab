@@ -7,6 +7,10 @@
   <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.1.1" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
     <ProjectReference Include="..\Store.Product.Domain\Store.Product.Domain.csproj" />

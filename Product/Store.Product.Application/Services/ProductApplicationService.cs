@@ -9,6 +9,7 @@ using Store.Product.Domain.EventArgs;
 using Store.Product.Domain.Repositories;
 using Store.Product.Domain.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -118,7 +119,7 @@ namespace Store.Product.Application.Services
             return await _repository.GetAllProductsAsync(page, recordsPerPage);
         }
 
-        public async Task RegisterNewProductAsync(Domain.Entities.Product product)
+        public async Task RegisterNewProductAsync(Domain.Entities.Product product, IEnumerable<byte[]> photos, byte[] profile)
         {
             product.Key = KeyBuilder.Build();
 

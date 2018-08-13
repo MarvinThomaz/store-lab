@@ -29,14 +29,12 @@ namespace Store.Product.API.V1.Controllers
 
             var product = mapper.Map(request);
 
-            await _service.RegisterNewProductAsync(product);
+            await _service.RegisterNewProductAsync(product, request.Photos, request.ProfilePhoto);
 
             var urlParameters = new { controller = "products", key = product.Key };
             var link = _urlHelper.Link(GetProductRouteName, urlParameters);
 
             return Created(link, link);
-
-            return BadRequest();
         }
 
         [HttpDelete]

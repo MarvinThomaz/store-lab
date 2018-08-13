@@ -1,6 +1,7 @@
 ﻿using Store.Common.Interfaces;
 using Store.Product.Domain.Delegates;
 using Store.Product.Domain.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Store.Product.Domain.Services
@@ -16,7 +17,7 @@ namespace Store.Product.Domain.Services
         event UpdateProductNameEventHandler ProductNameUpdated;
         event UpdateProductPriceEventHandler ProductPriceUpdated;
 
-        Task RegisterNewProductAsync(Entities.Product product);
+        Task RegisterNewProductAsync(Entities.Product product, IEnumerable<byte[]> photos, byte[] profile);
         Task AddOrUpdateProductPropertyAsync(ProductProperty property, string productKey);
         Task<Entities.Product> GetProductByKeyAsync(string productKey);
         Task<IPagingList<Entities.Product>> GetProductsAsync(int page, int recordsPerPage);
