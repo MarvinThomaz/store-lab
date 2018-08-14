@@ -3,11 +3,11 @@ namespace Store.Common.Attributes
 {
     public class EnumDescription : Attribute
     {
-        public EnumDescription(string resourceName)
+        public EnumDescription(string description)
         {
-            Name = resourceName;
+            Description = description;
         }
 
-        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Store.Product.API.V1.Controllers
         [Route("types")]
         public IActionResult GetLaunchTypes([FromServices] ILaunchEnumToLaunchTypesMapper mapper)
         {
-            return Ok(mapper.Map(LaunchEnum.Addition));
+            return Ok(mapper.Map());
         }
     }
 }

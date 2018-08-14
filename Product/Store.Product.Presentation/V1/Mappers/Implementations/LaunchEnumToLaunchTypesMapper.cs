@@ -8,9 +8,9 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
 {
     public class LaunchEnumToLaunchTypesMapper : ILaunchEnumToLaunchTypesMapper
     {
-        public IEnumerable<LaunchTypesResponse> Map(LaunchEnum source)
+        public IEnumerable<LaunchTypesResponse> Map()
         {
-            var values = Enum.GetValues(source.GetType());
+            var values = Enum.GetValues(typeof(LaunchEnum));
             var response = new List<LaunchTypesResponse>();
 
             foreach (int value in values)

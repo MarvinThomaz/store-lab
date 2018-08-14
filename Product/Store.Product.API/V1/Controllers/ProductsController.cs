@@ -1,13 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Store.Common.Extensions;
 using Store.Common.Paging;
+using Store.Product.API.V1.ModelExamples;
 using Store.Product.Domain.Services;
 using Store.Product.Presentation.V1.Mappers.Interfaces;
 using Store.Product.Presentation.V1.Models.Request;
+using Swashbuckle.AspNetCore.Examples;
 using System.Threading.Tasks;
 
 namespace Store.Product.API.V1.Controllers
 {
+    /// <summary>
+    /// Controller of products to manage products of Store.
+    /// </summary>
     [Route("v1/[controller]")]
     public class ProductsController : Controller
     {
@@ -16,22 +21,33 @@ namespace Store.Product.API.V1.Controllers
         private readonly IProductApplicationService _service;
         private readonly IUrlHelper _urlHelper;
 
+        /// <summary>
+        /// Initialize controller with service application and url helper.
+        /// </summary>
+        /// <param name="service">Service application used to manage products.</param>
+        /// <param name="urlHelper">Url helper user to build links of members.</param>
         public ProductsController(IProductApplicationService service, IUrlHelper urlHelper)
         {
             _service = service;
             _urlHelper = urlHelper;
         }
-
+        
         /// <summary>
-        /// Create product.
+        /// Create product asynchronously.
         /// </summary>
         /// <remarks>
-        /// Creates a new product and insert in catalog of service.
+        /// Creates a new product and insert in catalog of Store.
         /// </remarks>
-        /// <param name="request">Parameters to create a product.</param>
-        /// <param name="mapper">Mapper of product request to product entity.</param>
+        /// <param name="request">
+        /// To create a product is important you have a <see cref="CreatePriceRequest"/> of product,
+        /// and price have a <see cref="CreateCoinRequest"/> to create.
+        /// Is optional to use <see cref="CreatePropertyRequest"/> and <see cref="LaunchsController"/>,
+        /// but this types are list.
+        /// </param>
+        /// <param name="mapper">Map <see cref="CreateProductRequest"/> to <see cref="Domain.Entities.Product"/>.</param>
         /// <returns>Status of operation</returns>
         [HttpPost]
+        [SwaggerResponseExample(201, typeof(CreateProductRequestExample))]
         public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductRequest request, [FromServices] ICreateProductRequestToProductMapper mapper)
         {
             ModelState.Validate();
@@ -46,6 +62,11 @@ namespace Store.Product.API.V1.Controllers
             return Created(link, link);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{key}")]
         public async Task<IActionResult> DisableProductAsync(string key)
@@ -55,6 +76,11 @@ namespace Store.Product.API.V1.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{key}", Name = GetProductRouteName)]
         public async Task<IActionResult> GetProductAsync(string key)
@@ -69,6 +95,12 @@ namespace Store.Product.API.V1.Controllers
             return Ok(product);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="mapper"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetProductsAsync([FromQuery] PagingParameters parameters, [FromServices] IProductToListProductResponseMapper mapper)
         {

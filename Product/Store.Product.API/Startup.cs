@@ -8,6 +8,7 @@ using Store.Product.API.Extensions;
 using Store.Product.Application.Extensions;
 using Store.Product.Presentation.Extensions;
 using Store.Product.Repository.Extensions;
+using Swashbuckle.AspNetCore.Examples;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
@@ -50,8 +51,10 @@ namespace Store.Product.API
                 var appName = PlatformServices.Default.Application.ApplicationName;
                 var xmlPath = Path.Combine(appPath, $"{appName}.xml");
 
+                options.OperationFilter<ExamplesOperationFilter>();
                 options.IncludeXmlComments(xmlPath);
             });
+
             services.AddMvc();
 
             return services.BuildServiceProvider();
@@ -65,9 +68,9 @@ namespace Store.Product.API
             }
 
             app.UseException();
-            app.UseMvc();
-            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Conversor de Temperaturas"));
             app.UseSwagger();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Store - Product - v1"));
+            app.UseMvc();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Store.Common.Utils
             var enumType = type.GetType();
             var description = enumType.GetCustomAttribute<EnumDescription>();
 
-            return description.Name;
+            return description?.Description;
         }
     }
 }
