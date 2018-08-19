@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using Store.Common.Attributes;
 using Store.Common.Entities;
@@ -23,8 +24,16 @@ namespace Store.Product.Domain.Entities
         public string Name { get; set; }
 
         [Required]
-        public bool IsDeleted { get; set; }
+        public bool IsEnabled { get; set; }
 
-        public List<Property> Properties { get; set; }
+        [Required]
+        public Price Price { get; set; }
+
+        [Required]
+        public Uri ProfilePhoto { get; set; }
+
+        public List<Uri> Photos { get; set; }
+        public List<ProductProperty> Properties { get; set; }
+        public List<Launch> Launches { get; set; }
     }
 }

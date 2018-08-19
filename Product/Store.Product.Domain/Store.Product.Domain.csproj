@@ -1,8 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Events\**" />
+    <EmbeddedResource Remove="Events\**" />
+    <None Remove="Events\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Class1.cs" />
@@ -12,14 +18,7 @@
     <None Remove=".DS_Store" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Events\" />
-    <Folder Include="Enums\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Store.Common\Store.Common.csproj" />
+    <ProjectReference Include="..\..\Common\Store.Common\Store.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\DomainResource.resx">
