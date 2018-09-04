@@ -152,9 +152,9 @@ namespace Store.Product.Repositories
             await _dataAccess.UpdateAsync<Domain.Entities.Product>(properties, productKey);
         }
 
-        public Task<IPagingList<Domain.Entities.Product>> GetAllProductsAsync(int page, int recordsPerPage)
+        public async Task<IPagingList<Domain.Entities.Product>> GetAllProductsAsync(int page, int recordsPerPage)
         {
-            throw new NotImplementedException();
+            return await _dataAccess.SelectAsync<Domain.Entities.Product>(page, recordsPerPage);
         }
     }
 }
