@@ -1,11 +1,9 @@
-﻿using System;
-using Store.Common.Infra;
-using Store.Product.API.V1.Models.Response;
-using Store.Product.Domain.Entities;
+﻿using Store.Product.Presentation.V1.Mappers.Interfaces;
+using Store.Product.Presentation.V1.Models.Response;
 
-namespace Store.Product.API.V1.Mappers
+namespace Store.Product.Presentation.V1.Mappers.Implementations
 {
-    public class ProductToGetProductResponseMapper : IMapper<Domain.Entities.Product, GetProductResponse>
+    public class ProductToGetProductResponseMapper : IProductToGetProductResponseMapper
     {
         public GetProductResponse Map(Domain.Entities.Product source)
         {

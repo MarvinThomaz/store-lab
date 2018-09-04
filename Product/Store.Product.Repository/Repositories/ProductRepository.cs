@@ -57,9 +57,9 @@ namespace Store.Product.Repositories
             await _dataAccess.InsertAsync(product);
         }
 
-        public async Task<IPagingList<Domain.Entities.Product>> GetProductsByDeleteStatusAsync(bool isDeleted, int page, int recordsPerPage)
+        public async Task<IPagingList<Domain.Entities.Product>> GetProductsByDeleteStatusAsync(bool isEnabled, int page, int recordsPerPage)
         {
-            return await _dataAccess.SelectAllByQueryAsync<Domain.Entities.Product>(c => c.IsDeleted == isDeleted, page, recordsPerPage);
+            return await _dataAccess.SelectAllByQueryAsync<Domain.Entities.Product>(c => c.IsEnabled == isEnabled, page, recordsPerPage);
         }
 
         public async Task<Domain.Entities.Product> GetProductByKeyAsync(string key)
@@ -75,7 +75,6 @@ namespace Store.Product.Repositories
             product.ModifiedOn = modifiedOn;
 
             await _dataAccess.UpdateAsync(product, productKey);
-
         }
 
         public async Task UpdateEnableProductStatusAsync(string productKey, bool isEnabled, DateTime modifiedOn)
@@ -131,15 +130,15 @@ namespace Store.Product.Repositories
             await _dataAccess.UpdateAsync(product, productKey);
         }
 
-        public async Task UpdateDeletedStatusOfProductAsync(string productKey, bool isDeleted, DateTime modifiedOn)
+        public async Task UpdateDeletedStatusOfProductAsync(string productKey, bool isEnabled, DateTime modifiedOn)
         {
             var properties = new Dictionary<string, object>
             {
-                { nameof(Domain.Entities.Product.IsDeleted), isDeleted },
+                { nameof(Domain.Entities.Product.IsEnabled), isEnabled },
                 { nameof(Domain.Entities.Product.ModifiedOn), modifiedOn }
             };
 
-            await _dataAccess.UpdateAsync<Domain.Entities.Product>(productKey, properties);
+            await _dataAccess.UpdateAsync<Domain.Entities.Product>(properties, productKey);
         }
 
         public async Task UpdateNameOfProductAsync(string productKey, string name, DateTime modifiedOn)
@@ -150,7 +149,12 @@ namespace Store.Product.Repositories
                 { nameof(Domain.Entities.Product.ModifiedOn), modifiedOn }
             };
 
-            await _dataAccess.UpdateAsync<Domain.Entities.Product>(productKey, properties);
+            await _dataAccess.UpdateAsync<Domain.Entities.Product>(properties, productKey);
+        }
+
+        public Task<IPagingList<Domain.Entities.Product>> GetAllProductsAsync(int page, int recordsPerPage)
+        {
+            throw new NotImplementedException();
         }
     }
 }

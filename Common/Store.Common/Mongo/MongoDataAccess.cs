@@ -95,21 +95,6 @@ namespace Store.Common.Mongo
             await collection.ReplaceOneAsync(query, entity);
         }
 
-<<<<<<< HEAD:Store.Common/Infra/MongoDataAccess.cs
-        public async Task UpdateAsync<T>(string key, IDictionary<string, object> properties)
-        {
-            var type = typeof(T);
-            var entity = await SelectByKeyAsync<T>(key);
-
-            foreach (var item in properties)
-            {
-                var property = type.GetProperty(item.Key);
-
-                if(property != null)
-                {
-                    property.SetValue(entity, item.Value);
-                }
-=======
         public async Task UpdateAsync<T>(IDictionary<string, object> properties, string key)
         {
             var entity = await SelectByKeyAsync<T>(key);
@@ -118,7 +103,6 @@ namespace Store.Common.Mongo
             foreach (var property in entityProperties)
             {
                 property.SetValue(entity, properties[property.Name]);
->>>>>>> f04bd6248628029a6dbb2b819a33894afafd1103:Common/Store.Common/Mongo/MongoDataAccess.cs
             }
 
             await UpdateAsync(entity, key);

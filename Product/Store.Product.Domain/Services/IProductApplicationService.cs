@@ -21,17 +21,11 @@ namespace Store.Product.Domain.Services
         Task AddOrUpdateProductPropertyAsync(ProductProperty property, string productKey);
         Task<Entities.Product> GetProductByKeyAsync(string productKey);
         Task<IPagingList<Entities.Product>> GetProductsAsync(int page, int recordsPerPage);
-<<<<<<< HEAD
-        Task UpdateProduct(string productKey, string productName);
-        Task RemoveProperty(string propertyKey, string productKey);
-        Task DisableProduct(string productKey);
-=======
         Task UpdateProductNameAsync(string name, string productKey);
         Task RemovePropertyFromProductAsync(string propertyKey, string productKey);
         Task DisableProductAsync(string productKey);
         Task UpdateProductPriceAsync(string productKey, Price price);
         Task AddLaunchToProductAsync(string productKey, Launch launch);
         Task UnavailableProductLaunchAsync(string productKey, string launchKey);
->>>>>>> f04bd6248628029a6dbb2b819a33894afafd1103
     }
 }

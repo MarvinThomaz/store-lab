@@ -4,5 +4,5 @@ using System.Collections.Generic;
 
 namespace Store.Product.Presentation.V1.Mappers.Interfaces
 {
-    public interface IProductToListProductResponseMapper : IMapper<IEnumerable<Domain.Entities.Product>, IEnumerable<ListProductResponse>> { }
+    public interface IProductToListProductResponseMapper : IMapper<IPagingList<Domain.Entities.Product>, IPagingList<ListProductResponse>> { }
 }
