@@ -18,10 +18,12 @@ namespace Store.Product.Application.Services
     public class ProductApplicationService : IProductApplicationService
     {
         private readonly IProductRepository _repository;
+        private readonly IFileUploader _uploader;
 
-        public ProductApplicationService(IProductRepository repository)
+        public ProductApplicationService(IProductRepository repository, IFileUploader uploader)
         {
             _repository = repository;
+            _uploader = uploader;
         }
 
         public event AddLaunchToProductEventHandler LaunchAddedToProduct;
@@ -58,7 +60,7 @@ namespace Store.Product.Application.Services
                 }
             }
             else
-                throw new EntityException(keyValidation.Aggregate(launchValidation).ToArray());
+                throw new EntityException(keyValidation.Aggregate(launchValidation));
         }
 
         public async Task AddOrUpdateProductPropertyAsync(ProductProperty property, [Validate(true, 36, 36)]string productKey)
@@ -95,7 +97,7 @@ namespace Store.Product.Application.Services
                 }
             }
             else
-                throw new EntityException(keyValidation.Aggregate(propertyValidation).ToArray());
+                throw new EntityException(keyValidation.Aggregate(propertyValidation));
         }
 
         public async Task DisableProductAsync([Validate(true, 36, 36)]string productKey)
@@ -124,22 +126,40 @@ namespace Store.Product.Application.Services
             return await _repository.GetAllProductsAsync(page, recordsPerPage);
         }
 
-        public async Task RegisterNewProductAsync(Domain.Entities.Product product, IEnumerable<byte[]> photos, byte[] profile)
+        public async Task RegisterNewProductAsync(Domain.Entities.Product product, IEnumerable<byte[]> photos, [Validate(true)] byte[] profile)
         {
             var productValidation = product.Validate();
+            var profileValidation = profile.Validate();
 
-            if (productValidation.IsValid)
+            if (productValidation.IsValid && profileValidation.IsValid)
             {
                 product.Key = KeyBuilder.Build();
 
                 await _repository.CreateProductAsync(product);
+
+                _uploader.FileUploaded -= async (sender, eventArgs) =>
+                {
+                    product.ProfilePhoto = eventArgs.Uri;
+
+                    await _repository.UpdateProductAsync(product, product.Key);
+                };
+
+                _uploader.FilesUploadeds -= async (sender, eventArgs) =>
+                {
+                    product.Photos = eventArgs.Uris.ToList();
+
+                    await _repository.UpdateProductAsync(product, product.Key);
+                };
+
+                await _uploader.UploadAsync(profile);
+                await _uploader.UploadAllAsync(photos);
 
                 var args = new RegisterNewProductEventArgs { Product = product };
 
                 ProductRegisted?.Invoke(this, args);
             }
             else
-                throw new EntityException(productValidation);
+                throw new EntityException(productValidation.Aggregate(profileValidation));
         }
 
         public async Task RemovePropertyFromProductAsync([Validate(true, 50, 2)]string propertyName, [Validate(true, 36, 36)]string productKey)
@@ -170,7 +190,7 @@ namespace Store.Product.Application.Services
                 }
             }
             else
-                throw new EntityException(keyValidation.Aggregate(propertyKeyValidation).ToArray());
+                throw new EntityException(keyValidation.Aggregate(propertyKeyValidation));
         }
 
         public async Task UnavailableProductLaunchAsync([Validate(true, 36, 36)]string productKey, [Validate(true, 36, 36)]string launchKey)
@@ -187,7 +207,7 @@ namespace Store.Product.Application.Services
                 ProductLaunchUnavailable?.Invoke(this, args);
             }
             else
-                throw new EntityException(keyValidation.Aggregate(launchKeyValidation).ToArray());
+                throw new EntityException(keyValidation.Aggregate(launchKeyValidation));
         }
 
         public async Task UpdateProductNameAsync([Validate(true, 50, 2)]string name, [Validate(true, 36, 36)]string productKey)
@@ -204,7 +224,7 @@ namespace Store.Product.Application.Services
                 ProductNameUpdated?.Invoke(this, args);
             }
             else
-                throw new EntityException(nameValidation.Aggregate(productKeyValidation).ToArray());
+                throw new EntityException(nameValidation.Aggregate(productKeyValidation));
         }
 
         public async Task UpdateProductPriceAsync([Validate(true, 36, 36)]string productKey, Price price)
@@ -221,7 +241,7 @@ namespace Store.Product.Application.Services
                 ProductPriceUpdated?.Invoke(this, args);
             }
             else
-                throw new EntityException(keyValidation.Aggregate(priceValidation).ToArray());
+                throw new EntityException(keyValidation.Aggregate(priceValidation));
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Store.Common.Entities;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Store.Common.Exceptions
 {
@@ -9,6 +11,8 @@ namespace Store.Common.Exceptions
         {
             Errors = errors;
         }
+
+        public EntityException(IEnumerable<Info> errors) : this(errors.ToArray()) { }
 
         public EntityException(params Info[] errors)
         {

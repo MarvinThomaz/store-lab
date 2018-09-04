@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using Store.Common.Google;
 using Store.Common.Intefaces;
+using Store.Common.Interfaces;
 using Store.Common.Mongo;
 
 namespace Store.Common.Extensions
@@ -23,6 +25,11 @@ namespace Store.Common.Extensions
 
                 return client.GetDatabase(database);
             });
+        }
+
+        public static void AddGoogleStorage(this IServiceCollection services)
+        {
+            services.AddScoped<IFileUploader, GoogleCloudFileUploader>();
         }
     }
 }
