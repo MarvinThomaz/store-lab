@@ -1,5 +1,6 @@
 ﻿using Store.Common.Attributes;
 using Store.Common.Builders;
+using Store.Common.Entities;
 using Store.Common.Exceptions;
 using Store.Common.Extensions;
 using Store.Common.Interfaces;
@@ -135,24 +136,30 @@ namespace Store.Product.Application.Services
             {
                 product.Key = KeyBuilder.Build();
 
+                var profileFile = new File
+                {
+                    Bucket = "",
+                    ContentType = "",
+                    Data = profile,
+                    Metadata = new Dictionary<string, string> { { "type", "profile" }, { "key", product.Key } },
+                    Name = ""
+                };
+
+                var photosFiles = photos.Select(p => new File
+                {
+                    Bucket = "",
+                    ContentType = "",
+                    Data = profile,
+                    Metadata = new Dictionary<string, string> { { "type", "photo" }, { "key", product.Key } },
+                    Name = ""
+                });
+
                 await _repository.CreateProductAsync(product);
 
-                _uploader.FileUploaded -= async (sender, eventArgs) =>
-                {
-                    product.ProfilePhoto = eventArgs.Uri;
+                _uploader.FileUploaded += OnPhotoUploaded;
 
-                    await _repository.UpdateProductAsync(product, product.Key);
-                };
-
-                _uploader.FilesUploadeds -= async (sender, eventArgs) =>
-                {
-                    product.Photos = eventArgs.Uris.ToList();
-
-                    await _repository.UpdateProductAsync(product, product.Key);
-                };
-
-                await _uploader.UploadAsync(profile);
-                await _uploader.UploadAllAsync(photos);
+                await _uploader.UploadAsync(profileFile);
+                await _uploader.UploadAllAsync(photosFiles);
 
                 var args = new RegisterNewProductEventArgs { Product = product };
 
@@ -160,6 +167,25 @@ namespace Store.Product.Application.Services
             }
             else
                 throw new EntityException(productValidation.Aggregate(profileValidation));
+        }
+
+        private async Task OnPhotoUploaded(object sender, Common.EventArgs.UploadFileEventArgs args)
+        {
+            var productKey = args.File.Metadata["key"];
+            var imageType = args.File.Metadata["type"];
+            var product = await _repository.GetProductByKeyAsync(productKey);
+
+            if (imageType == "profile")
+            {
+                product.ProfilePhoto = args.Uri;
+            }
+            else
+            {
+                if (product.Photos == null)
+                    product.Photos = new List<Uri>();
+
+                product.Photos.Add(args.Uri);
+            }
         }
 
         public async Task RemovePropertyFromProductAsync([Validate(true, 50, 2)]string propertyName, [Validate(true, 36, 36)]string productKey)
