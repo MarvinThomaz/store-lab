@@ -30,9 +30,9 @@ namespace Store.Product.Domain.Entities
         public Price Price { get; set; }
 
         [Required]
-        public Uri ProfilePhoto { get; set; }
+        public ResponseFile ProfilePhoto { get; set; }
 
-        public List<Uri> Photos { get; set; }
+        public List<ResponseFile> Photos { get; set; }
         public List<ProductProperty> Properties { get; set; }
         public List<Launch> Launches { get; set; }
     }

@@ -1,11 +1,10 @@
 ﻿using Store.Common.Entities;
-using System;
 
 namespace Store.Common.EventArgs
 {
     public class UploadFileEventArgs
     {
-        public Uri Uri { get; set; }
-        public File File { get; set; }
+        public ResponseFile Response { get; set; }
+        public RequestFile Request { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Google.Cloud.Storage.V1;
 using Store.Common.Delegates;
+using Store.Common.Entities;
 using Store.Common.EventArgs;
 using Store.Common.Interfaces;
 using System;
@@ -20,7 +21,7 @@ namespace Store.Common.Google
 
         public event UploadFileEventHandler FileUploaded;
 
-        public async Task UploadAllAsync(IEnumerable<Entities.File> files)
+        public async Task UploadAllAsync(IEnumerable<Entities.RequestFile> files)
         {
             var tasks = new List<Task>();
 
@@ -32,7 +33,7 @@ namespace Store.Common.Google
             await Task.WhenAll(tasks.ToArray());
         }
 
-        public async Task UploadAsync(Entities.File file)
+        public async Task UploadAsync(Entities.RequestFile file)
         {
             var imageObject = await _client.UploadObjectAsync(
                 bucket: file.Bucket,
@@ -41,7 +42,8 @@ namespace Store.Common.Google
                 source: new MemoryStream(file.Data)
             );
 
-            var args = new UploadFileEventArgs { Uri = new Uri(imageObject.MediaLink), File = file };
+            var response = new ResponseFile { Name = file.Name, Uri = new Uri(imageObject.MediaLink) };
+            var args = new UploadFileEventArgs { Response = response, Request = file };
 
             FileUploaded?.Invoke(this, args);
         }

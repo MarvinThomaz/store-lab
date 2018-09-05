@@ -41,7 +41,7 @@ namespace Store.Product.Application.Services
             var keyValidation = productKey.Validate();
             var launchValidation = launch.Validate();
 
-            if (keyValidation.IsValid && launchValidation.IsValid)
+            if (keyValidation.IsValid() && launchValidation.IsValid())
             {
                 var product = await _repository.GetProductByKeyAsync(productKey);
 
@@ -69,7 +69,7 @@ namespace Store.Product.Application.Services
             var keyValidation = productKey.Validate();
             var propertyValidation = property.Validate();
 
-            if (keyValidation.IsValid && propertyValidation.IsValid)
+            if (keyValidation.IsValid() && propertyValidation.IsValid())
             {
                 var product = await _repository.GetProductByKeyAsync(productKey);
 
@@ -105,7 +105,7 @@ namespace Store.Product.Application.Services
         {
             var keyValidation = productKey.Validate();
 
-            if (keyValidation.IsValid)
+            if (keyValidation.IsValid())
             {
                 await _repository.UpdateEnableProductStatusAsync(productKey, false, DateTime.Now);
 
@@ -127,64 +127,47 @@ namespace Store.Product.Application.Services
             return await _repository.GetAllProductsAsync(page, recordsPerPage);
         }
 
-        public async Task RegisterNewProductAsync(Domain.Entities.Product product, IEnumerable<byte[]> photos, [Validate(true)] byte[] profile)
+        public async Task RegisterNewProductAsync(Domain.Entities.Product product, IEnumerable<RequestFile> photos, RequestFile profile)
         {
             var productValidation = product.Validate();
             var profileValidation = profile.Validate();
+            var photosValidation = photos?.SelectMany(p => p.Validate());
 
-            if (productValidation.IsValid && profileValidation.IsValid)
+            if (productValidation.IsValid() && profileValidation.IsValid() && photosValidation.IsValid())
             {
                 product.Key = KeyBuilder.Build();
-
-                var profileFile = new File
-                {
-                    Bucket = "",
-                    ContentType = "",
-                    Data = profile,
-                    Metadata = new Dictionary<string, string> { { "type", "profile" }, { "key", product.Key } },
-                    Name = ""
-                };
-
-                var photosFiles = photos.Select(p => new File
-                {
-                    Bucket = "",
-                    ContentType = "",
-                    Data = profile,
-                    Metadata = new Dictionary<string, string> { { "type", "photo" }, { "key", product.Key } },
-                    Name = ""
-                });
 
                 await _repository.CreateProductAsync(product);
 
                 _uploader.FileUploaded += OnPhotoUploaded;
 
-                await _uploader.UploadAsync(profileFile);
-                await _uploader.UploadAllAsync(photosFiles);
+                await _uploader.UploadAsync(profile);
+                await _uploader.UploadAllAsync(photos);
 
                 var args = new RegisterNewProductEventArgs { Product = product };
 
                 ProductRegisted?.Invoke(this, args);
             }
             else
-                throw new EntityException(productValidation.Aggregate(profileValidation));
+                throw new EntityException(productValidation.Aggregate(profileValidation).Aggregate(photosValidation));
         }
 
         private async Task OnPhotoUploaded(object sender, Common.EventArgs.UploadFileEventArgs args)
         {
-            var productKey = args.File.Metadata["key"];
-            var imageType = args.File.Metadata["type"];
+            var productKey = args.Request.Metadata["key"];
+            var imageType = args.Request.Metadata["type"];
             var product = await _repository.GetProductByKeyAsync(productKey);
 
             if (imageType == "profile")
             {
-                product.ProfilePhoto = args.Uri;
+                product.ProfilePhoto = args.Response;
             }
             else
             {
                 if (product.Photos == null)
-                    product.Photos = new List<Uri>();
+                    product.Photos = new List<ResponseFile>();
 
-                product.Photos.Add(args.Uri);
+                product.Photos.Add(args.Response);
             }
         }
 
@@ -193,7 +176,7 @@ namespace Store.Product.Application.Services
             var keyValidation = productKey.Validate();
             var propertyKeyValidation = propertyName.Validate();
 
-            if (keyValidation.IsValid && propertyKeyValidation.IsValid)
+            if (keyValidation.IsValid() && propertyKeyValidation.IsValid())
             {
                 var product = await _repository.GetProductByKeyAsync(productKey);
 
@@ -224,7 +207,7 @@ namespace Store.Product.Application.Services
             var keyValidation = productKey.Validate();
             var launchKeyValidation = launchKey.Validate();
 
-            if (keyValidation.IsValid && launchKeyValidation.IsValid)
+            if (keyValidation.IsValid() && launchKeyValidation.IsValid())
             {
                 await _repository.UpdateLaunchAvailableStatusInProductAsync(productKey, launchKey, false, DateTime.Now);
 
@@ -241,7 +224,7 @@ namespace Store.Product.Application.Services
             var nameValidation = name.Validate();
             var productKeyValidation = productKey.Validate();
 
-            if (nameValidation.IsValid && productKeyValidation.IsValid)
+            if (nameValidation.IsValid() && productKeyValidation.IsValid())
             {
                 await _repository.UpdateProductNameAsync(productKey, name, DateTime.Now);
 
@@ -258,7 +241,7 @@ namespace Store.Product.Application.Services
             var keyValidation = productKey.Validate();
             var priceValidation = price.Validate();
 
-            if (keyValidation.IsValid && priceValidation.IsValid)
+            if (keyValidation.IsValid() && priceValidation.IsValid())
             {
                 await _repository.UpdatePriceOfProductAsync(productKey, price, DateTime.Now);
 

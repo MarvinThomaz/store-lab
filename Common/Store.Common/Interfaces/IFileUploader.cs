@@ -9,7 +9,7 @@ namespace Store.Common.Interfaces
     {
         event UploadFileEventHandler FileUploaded;
 
-        Task UploadAsync(File file);
-        Task UploadAllAsync(IEnumerable<File> file);
+        Task UploadAsync(RequestFile file);
+        Task UploadAllAsync(IEnumerable<RequestFile> file);
     }
 }
