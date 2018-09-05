@@ -10,5 +10,10 @@ namespace Store.Product.Presentation.V1.Models.Request
 
         [Required]
         public decimal Value { get; set; }
+
+        [Required]
+        public ValueTypeEnum ValueType { get; set; }
+
+        public CreateCoinRequest Coin { get; set; }
     }
 }

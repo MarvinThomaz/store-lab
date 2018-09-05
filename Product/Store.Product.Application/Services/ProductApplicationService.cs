@@ -146,7 +146,7 @@ namespace Store.Product.Application.Services
             if (productValidation.IsValid() && profileValidation.IsValid() && photosValidation.IsValid())
             {
                 await _repository.CreateProductAsync(product);
-
+                
                 _uploader.FileUploaded += OnPhotoUploaded;
 
                 profile.Bucket = $"{ProductName}-{product.Key}-{ProfileTypeName}-{profile.Key}".ToLower();

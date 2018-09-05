@@ -7,6 +7,9 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
     {
         public GetProductResponse Map(Domain.Entities.Product source)
         {
+            if (source == null)
+                return null;
+
             return new GetProductResponse
             {
                 Key = source.Key,

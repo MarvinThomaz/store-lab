@@ -20,6 +20,11 @@ namespace Store.Product.Domain.Entities
         public decimal Value { get; set; }
 
         [Required]
+        public ValueTypeEnum ValueType { get; set; }
+
+        public Coin Coin { get; set; }
+
+        [Required]
         public bool IsAvailable { get; set; }
     }
 }

@@ -8,6 +8,9 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
     {
         public ProductProperty Map(CreatePropertyRequest source)
         {
+            if (source == null)
+                return null;
+
             return new ProductProperty
             {
                 Name = source.Name,

@@ -10,6 +10,9 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
     {
         public RequestFile Map(CreatePhotoRequest source)
         {
+            if (source == null)
+                return null;
+
             return new RequestFile
             {
                 Key = KeyBuilder.Build(),

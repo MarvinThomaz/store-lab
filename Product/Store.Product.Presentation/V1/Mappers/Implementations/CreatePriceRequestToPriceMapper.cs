@@ -16,6 +16,9 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
 
         public Price Map(CreatePriceRequest source)
         {
+            if (source == null)
+                return null;
+
             var coin = _coinMapper.Map(source.Coin);
 
             return new Price

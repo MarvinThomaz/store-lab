@@ -7,6 +7,9 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
     {
         public Domain.Entities.Product Map(UpdateProductRequest source)
         {
+            if (source == null)
+                return null;
+
             return new Domain.Entities.Product
             {
                 Name = source.Name

@@ -25,6 +25,9 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
 
         public ProductEntity Map(CreateProductRequest source)
         {
+            if (source == null)
+                return null;
+
             var properties = source?.Properties?.Select(p => _propertyMapper.Map(p)).ToList();
             var launches = source?.Launches?.Select(l => _launchMapper.Map(l)).ToList();
             var price = _priceMapper.Map(source.Price);

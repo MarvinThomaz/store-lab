@@ -9,6 +9,9 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
     {
         public Coin Map(CreateCoinRequest source)
         {
+            if (source == null)
+                return null;
+
             return new Coin
             {
                 Key = KeyBuilder.Build(),
