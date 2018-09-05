@@ -12,7 +12,11 @@ namespace Store.Product.API.V1.ModelExamples
             {
                 Code = "A1B2C3",
                 Name = "Samsung Galaxy S8",
-                ProfilePhoto = Encoding.UTF8.GetBytes("photo"),
+                ProfilePhoto = new CreatePhotoRequest
+                {
+                    Data = Encoding.UTF8.GetBytes("photo"),
+                    Name = "Photo"
+                },
                 Price = new CreatePriceRequest
                 {
                     Coin = new CreateCoinRequest

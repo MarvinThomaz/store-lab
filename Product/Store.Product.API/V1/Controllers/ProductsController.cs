@@ -6,6 +6,7 @@ using Store.Product.Domain.Services;
 using Store.Product.Presentation.V1.Mappers.Interfaces;
 using Store.Product.Presentation.V1.Models.Request;
 using Swashbuckle.AspNetCore.Examples;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Store.Product.API.V1.Controllers
@@ -31,7 +32,7 @@ namespace Store.Product.API.V1.Controllers
             _service = service;
             _urlHelper = urlHelper;
         }
-        
+
         /// <summary>
         /// Create product asynchronously.
         /// </summary>
@@ -45,16 +46,19 @@ namespace Store.Product.API.V1.Controllers
         /// but this types are list.
         /// </param>
         /// <param name="mapper">Map <see cref="CreateProductRequest"/> to <see cref="Domain.Entities.Product"/>.</param>
+        /// <param name="photoMapper"></param>
         /// <returns>Status of operation</returns>
         [HttpPost]
         [SwaggerResponseExample(201, typeof(CreateProductRequestExample))]
-        public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductRequest request, [FromServices] ICreateProductRequestToProductMapper mapper)
+        public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductRequest request, [FromServices] ICreateProductRequestToProductMapper mapper, [FromServices] ICreatePhotoRequestToRequestFileMapper photoMapper)
         {
             ModelState.Validate();
 
             var product = mapper.Map(request);
+            var profile = photoMapper.Map(request.ProfilePhoto);
+            var photos = request.Photos.Select(photoMapper.Map);
 
-            await _service.RegisterNewProductAsync(product, request.Photos, request.ProfilePhoto);
+            await _service.RegisterNewProductAsync(product, photos, profile);
 
             var urlParameters = new { controller = "products", key = product.Key };
             var link = _urlHelper.Link(GetProductRouteName, urlParameters);

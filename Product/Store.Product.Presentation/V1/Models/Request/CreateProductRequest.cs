@@ -1,3 +1,4 @@
+using Store.Common.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,9 +19,9 @@ namespace Store.Product.Presentation.V1.Models.Request
         public CreatePriceRequest Price { get; set; }
 
         [Required]
-        public byte[] ProfilePhoto { get; set; }
+        public CreatePhotoRequest ProfilePhoto { get; set; }
 
-        public List<byte[]> Photos { get; set; }
+        public List<CreatePhotoRequest> Photos { get; set; }
         public List<CreatePropertyRequest> Properties { get; set; }
         public List<CreateLaunchRequest> Launches { get; set; }
     }
