@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Store.Common.Entities;
 using Store.Common.Exceptions;
@@ -10,10 +11,12 @@ namespace Store.Product.API.Middlewares
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger _logger;
 
-        public ExceptionMiddleware(RequestDelegate next)
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -26,8 +29,10 @@ namespace Store.Product.API.Middlewares
             {
                 await FormatException(context, exception.Errors, StatusCodes.Status422UnprocessableEntity);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                _logger.LogError(exception, exception.Message);
+
                 var errors = new Errors();
 
                 errors.AddError(Common.Enums.InfoType.InternalError, "");

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Store.Common.Extensions;
 using Store.Product.API.Extensions;
@@ -26,11 +27,13 @@ namespace Store.Product.API
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.AddAPI();
             services.AddPresentation();
             services.AddApplication();
             services.AddRepository();
             services.AddMongo("Product");
+            services.AddGoogleStorage();
             services.AddCommon();
             services.AddSwaggerGen(options =>
             {
@@ -60,11 +63,13 @@ namespace Store.Product.API
             return services.BuildServiceProvider();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                loggerFactory.AddConsole();
             }
 
             app.UseException();

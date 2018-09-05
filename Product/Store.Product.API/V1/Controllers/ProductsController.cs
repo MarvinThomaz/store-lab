@@ -46,17 +46,17 @@ namespace Store.Product.API.V1.Controllers
         /// but this types are list.
         /// </param>
         /// <param name="mapper">Map <see cref="CreateProductRequest"/> to <see cref="Domain.Entities.Product"/>.</param>
-        /// <param name="photoMapper"></param>
+        /// <param name="photoMapper">Map <see cref="CreatePhotoRequest"/> to <see cref="Common.Entities.RequestFile"/>.</param>
         /// <returns>Status of operation</returns>
         [HttpPost]
-        [SwaggerResponseExample(201, typeof(CreateProductRequestExample))]
+        [SwaggerRequestExample(typeof(CreateProductRequest), typeof(CreateProductRequestExample))]
         public async Task<IActionResult> CreateProductAsync([FromBody] CreateProductRequest request, [FromServices] ICreateProductRequestToProductMapper mapper, [FromServices] ICreatePhotoRequestToRequestFileMapper photoMapper)
         {
             ModelState.Validate();
 
             var product = mapper.Map(request);
             var profile = photoMapper.Map(request.ProfilePhoto);
-            var photos = request.Photos.Select(photoMapper.Map);
+            var photos = request.Photos?.Select(photoMapper.Map)?.ToList();
 
             await _service.RegisterNewProductAsync(product, photos, profile);
 

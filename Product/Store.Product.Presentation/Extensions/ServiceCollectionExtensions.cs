@@ -16,6 +16,7 @@ namespace Store.Product.Presentation.Extensions
             services.AddSingleton<ICreateLaunchRequestToLaunchMapper, CreateLaunchRequestToLaunchMapper>();
             services.AddSingleton<ICreatePriceRequestToPriceMapper, CreatePriceRequestToPriceMapper>();
             services.AddSingleton<ICreateCoinRequestToCoinMapper, CreateCoinRequestToCoinMapper>();
+            services.AddSingleton<ICreatePhotoRequestToRequestFileMapper, CreatePhotoRequestToRequestFileMapper>();
         }
     }
 }

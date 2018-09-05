@@ -18,7 +18,7 @@ namespace Store.Product.Domain.Services
         event UpdateProductNameEventHandler ProductNameUpdated;
         event UpdateProductPriceEventHandler ProductPriceUpdated;
 
-        Task RegisterNewProductAsync(Entities.Product product, IEnumerable<RequestFile> photos, RequestFile profile);
+        Task RegisterNewProductAsync(Entities.Product product, List<RequestFile> photos, RequestFile profile);
         Task AddOrUpdateProductPropertyAsync(ProductProperty property, string productKey);
         Task<Entities.Product> GetProductByKeyAsync(string productKey);
         Task<IPagingList<Entities.Product>> GetProductsAsync(int page, int recordsPerPage);

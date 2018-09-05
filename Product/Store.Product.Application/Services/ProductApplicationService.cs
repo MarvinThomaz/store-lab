@@ -18,6 +18,12 @@ namespace Store.Product.Application.Services
 {
     public class ProductApplicationService : IProductApplicationService
     {
+        private const string ProductKeyName = nameof(Domain.Entities.Product.Key);
+        private const string FileTypeName = "Type";
+        private const string ProfileTypeName = "profile";
+        private const string PhotoTypeName = "photo";
+        private const string ProductName = nameof(Domain.Entities.Product);
+
         private readonly IProductRepository _repository;
         private readonly IFileUploader _uploader;
 
@@ -127,19 +133,38 @@ namespace Store.Product.Application.Services
             return await _repository.GetAllProductsAsync(page, recordsPerPage);
         }
 
-        public async Task RegisterNewProductAsync(Domain.Entities.Product product, IEnumerable<RequestFile> photos, RequestFile profile)
+        public async Task RegisterNewProductAsync(Domain.Entities.Product product, List<RequestFile> photos, RequestFile profile)
         {
-            var productValidation = product.Validate();
-            var profileValidation = profile.Validate();
-            var photosValidation = photos?.SelectMany(p => p.Validate());
+            const string profilePhotoName = nameof(product.ProfilePhoto);
+            const string photosName = nameof(product.Photos);
+            const string bucketName = nameof(profile.Bucket);
+
+            var productValidation = product.Validate(profilePhotoName, photosName);
+            var profileValidation = profile.Validate(bucketName);
+            var photosValidation = photos?.SelectMany(p => p.Validate(bucketName));
 
             if (productValidation.IsValid() && profileValidation.IsValid() && photosValidation.IsValid())
             {
-                product.Key = KeyBuilder.Build();
-
                 await _repository.CreateProductAsync(product);
 
                 _uploader.FileUploaded += OnPhotoUploaded;
+
+                profile.Bucket = $"{ProductName}-{product.Key}-{ProfileTypeName}-{profile.Key}".ToLower();
+                profile.Metadata = new Dictionary<string, string>
+                {
+                    { ProductKeyName, product.Key },
+                    { FileTypeName, ProfileTypeName }
+                };
+
+                photos?.ForEach(p =>
+                {
+                    p.Bucket = $"{ProductName}-{product.Key}-{PhotoTypeName}-{p.Key}".ToLower();
+                    p.Metadata = new Dictionary<string, string>
+                    {
+                        { ProductKeyName, product.Key },
+                        { FileTypeName, PhotoTypeName }
+                    };
+                });
 
                 await _uploader.UploadAsync(profile);
                 await _uploader.UploadAllAsync(photos);
@@ -154,21 +179,23 @@ namespace Store.Product.Application.Services
 
         private async Task OnPhotoUploaded(object sender, Common.EventArgs.UploadFileEventArgs args)
         {
-            var productKey = args.Request.Metadata["key"];
-            var imageType = args.Request.Metadata["type"];
+            var productKey = args.Request.Metadata[ProductKeyName];
+            var imageType = args.Request.Metadata[FileTypeName];
             var product = await _repository.GetProductByKeyAsync(productKey);
 
-            if (imageType == "profile")
+            if (imageType == ProfileTypeName)
             {
                 product.ProfilePhoto = args.Response;
             }
-            else
+            else if(imageType == PhotoTypeName)
             {
                 if (product.Photos == null)
                     product.Photos = new List<ResponseFile>();
 
                 product.Photos.Add(args.Response);
             }
+
+            await _repository.UpdateProductAsync(product, productKey);
         }
 
         public async Task RemovePropertyFromProductAsync([Validate(true, 50, 2)]string propertyName, [Validate(true, 36, 36)]string productKey)

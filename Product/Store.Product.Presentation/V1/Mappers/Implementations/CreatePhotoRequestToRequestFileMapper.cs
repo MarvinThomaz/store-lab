@@ -1,4 +1,5 @@
-﻿using Store.Common.Entities;
+﻿using Store.Common.Builders;
+using Store.Common.Entities;
 using Store.Product.Presentation.V1.Mappers.Interfaces;
 using Store.Product.Presentation.V1.Models.Request;
 using System;
@@ -11,7 +12,8 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
         {
             return new RequestFile
             {
-                ContentType = "",
+                Key = KeyBuilder.Build(),
+                ContentType = "image",
                 Data = source.Data,
                 Name = source.Name
             };

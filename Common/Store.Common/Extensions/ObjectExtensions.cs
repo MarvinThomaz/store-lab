@@ -2,6 +2,7 @@
 using Store.Common.Entities;
 using System;
 using System.Collections;
+using System.Linq;
 using System.Reflection;
 
 namespace Store.Common.Extensions
@@ -29,7 +30,7 @@ namespace Store.Common.Extensions
             }
         }
 
-        public static Errors Validate(this object entity)
+        public static Errors Validate(this object entity, params string[] exceptParameters)
         {
             var type = entity.GetType();
             var properties = type.GetProperties();
@@ -37,6 +38,9 @@ namespace Store.Common.Extensions
 
             foreach (var property in properties)
             {
+                if (exceptParameters.Contains(property.Name))
+                    continue;
+
                 var propertyErrors = ValidateAllProperties(property, entity);
 
                 errors.AddRange(propertyErrors);

@@ -1,3 +1,4 @@
+using Store.Common.Builders;
 using Store.Common.Interfaces;
 using Store.Product.Domain.Entities;
 using Store.Product.Presentation.V1.Mappers.Interfaces;
@@ -30,11 +31,13 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
 
             return new ProductEntity
             {
+                Key = KeyBuilder.Build(),
                 Code = source.Code,
                 Name = source.Name,
                 Properties = properties,
                 Launches = launches,
-                Price = price
+                Price = price,
+                IsEnabled = true
             };
         }
     }
