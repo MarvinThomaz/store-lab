@@ -138,10 +138,11 @@ namespace Store.Product.Application.Services
             const string profilePhotoName = nameof(product.ProfilePhoto);
             const string photosName = nameof(product.Photos);
             const string bucketName = nameof(profile.Bucket);
+            const string nameOfPhotosName = nameof(RequestFile.Name);
 
             var productValidation = product.Validate(profilePhotoName, photosName);
-            var profileValidation = profile.Validate(bucketName);
-            var photosValidation = photos?.SelectMany(p => p.Validate(bucketName));
+            var profileValidation = profile.Validate(bucketName, nameOfPhotosName);
+            var photosValidation = photos?.SelectMany(p => p.Validate(bucketName, nameOfPhotosName));
 
             if (productValidation.IsValid() && profileValidation.IsValid() && photosValidation.IsValid())
             {
@@ -149,7 +150,8 @@ namespace Store.Product.Application.Services
                 
                 _uploader.FileUploaded += OnPhotoUploaded;
 
-                profile.Bucket = $"{ProductName}-{product.Key}-{ProfileTypeName}-{profile.Key}".ToLower();
+                profile.Name = $"{ProductName}-{product.Key}-{ProfileTypeName}-{profile.Key}".ToLower();
+                profile.Bucket = "store-lab-product-profile";
                 profile.Metadata = new Dictionary<string, string>
                 {
                     { ProductKeyName, product.Key },
@@ -158,7 +160,8 @@ namespace Store.Product.Application.Services
 
                 photos?.ForEach(p =>
                 {
-                    p.Bucket = $"{ProductName}-{product.Key}-{PhotoTypeName}-{p.Key}".ToLower();
+                    p.Name = $"{ProductName}-{product.Key}-{PhotoTypeName}-{p.Key}".ToLower();
+                    p.Bucket = "store-lab-product-photos";
                     p.Metadata = new Dictionary<string, string>
                     {
                         { ProductKeyName, product.Key },

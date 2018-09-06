@@ -16,9 +16,8 @@ namespace Store.Product.Presentation.V1.Mappers.Implementations
             return new RequestFile
             {
                 Key = KeyBuilder.Build(),
-                ContentType = "image",
-                Data = source.Data,
-                Name = source.Name
+                ContentType = source.ContentType,
+                Data = source.Data
             };
         }
     }

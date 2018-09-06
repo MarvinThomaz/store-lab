@@ -22,7 +22,7 @@ namespace Store.Product.API.V1.ModelExamples
                 ProfilePhoto = new CreatePhotoRequest
                 {
                     Data = photoBytes,
-                    Name = "Photo"
+                    ContentType = "image/png"
                 },
                 Price = new CreatePriceRequest
                 {
@@ -60,7 +60,7 @@ namespace Store.Product.API.V1.ModelExamples
                     new CreatePhotoRequest
                     {
                         Data = photoBytes,
-                        Name = "Test Image"
+                        ContentType = "image/png"
                     }
                 },
                 Properties = new List<CreatePropertyRequest>

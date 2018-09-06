@@ -14,10 +14,10 @@ namespace Store.Common.Google
     {
         private readonly StorageClient _client;
 
-        //public GoogleCloudFileUploader(StorageClient client)
-        //{
-        //    _client = client;
-        //}
+        public GoogleCloudFileUploader(StorageClient client)
+        {
+            _client = client;
+        }
 
         public event UploadFileEventHandler FileUploaded;
 
@@ -38,14 +38,14 @@ namespace Store.Common.Google
 
         public async Task UploadAsync(Entities.RequestFile file)
         {
-            //var imageObject = await _client.UploadObjectAsync(
-            //    bucket: file.Bucket,
-            //    objectName: file.Name,
-            //    contentType: file.ContentType,
-            //    source: new MemoryStream(file.Data)
-            //);
+            var imageObject = await _client.UploadObjectAsync(
+                bucket: file.Bucket,
+                objectName: file.Name,
+                contentType: file.ContentType,
+                source: new MemoryStream(file.Data)
+            );
 
-            var response = new ResponseFile { Name = file.Name/*, Uri = new Uri(imageObject.MediaLink)*/ };
+            var response = new ResponseFile { Name = file.Name, Uri = new Uri(imageObject.MediaLink) };
             var args = new UploadFileEventArgs { Response = response, Request = file };
 
             FileUploaded?.Invoke(this, args);

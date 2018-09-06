@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Store.Common.Extensions;
+using Store.Common.Google;
 using Store.Product.API.Extensions;
 using Store.Product.Application.Extensions;
 using Store.Product.Presentation.Extensions;
@@ -27,6 +28,13 @@ namespace Store.Product.API
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(svcProvider =>
+            {
+                var settings = Configuration.GetSection(nameof(GoogleCloudAuthenticationSettings)).Get<GoogleCloudAuthenticationSettings>();
+
+                return settings;
+            });
+
             services.AddLogging();
             services.AddAPI();
             services.AddPresentation();
